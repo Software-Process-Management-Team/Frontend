@@ -1,0 +1,15 @@
+.bg{
+    background-image: url(../../assets/images/login_bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.right{
+    margin: 10% 4%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.btn{
+  width: 300px;  
+}
