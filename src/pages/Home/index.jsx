@@ -11,8 +11,7 @@ import DrawerLeft from '../../components/DrawerLeft';
 import Header from '../../components/Header';
 import UserTabs from '../../components/UserTabs';
 import AdminTabs from '../../components/AdminTabs';
-import SearchBox from '../../components/SearchBox';
-import FuncHeader from '../../components/FuncHeader';
+import Content from '../../components/Content';
 
 import '../../components/style.css'
 import axios from 'axios';
@@ -35,8 +34,9 @@ export default function Home(props) {
 
     const InnerTabs = (props) =>{
       //获取子组件当前选择的功能的函数
-      const getFunc = (func) =>{
-        console.log(func);
+      const getFunc = (newFunc) =>{
+        console.log(newFunc);
+        setFunc(newFunc);
       }
         if(props.privilege === 'user'){
           return <UserTabs getFunc={getFunc}/>
@@ -52,15 +52,17 @@ export default function Home(props) {
         position="fixed" 
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
-        <Header id={id}/>
+        <Header 
+        id={id}
+        privilege={props.privilege}
+        />
       </AppBar>
       <DrawerLeft >
           <InnerTabs privilege={props.privilege}/>
       </DrawerLeft>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <FuncHeader func="search books"/>
-        <SearchBox/>
+        <Content func={func}/>
       </Box>
     </Box>
   );

@@ -28,7 +28,7 @@ export default function Signin() {
         if(!phone_reg.test(data.id)){
             setMsg({
                 open:true,
-                message:'Incorrect PhoneNumber!'
+                message:'Incorrect id!'
             });
         }
         else{

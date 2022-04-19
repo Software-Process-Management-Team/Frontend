@@ -20,7 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Snackbar } from '@mui/material';
 import axios from 'axios';
 
-export default function User() {
+export default function User(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const [Diaopen, setDiaOpen] = React.useState(false);
@@ -54,38 +54,52 @@ export default function User() {
   const handleSubmit = (e)=>{
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    const data={
-      password:fd.get('pwd')
-    }
-    if(data.password !== fd.get("cfpwd")){
+    
+    if(fd.get("pwd") !== fd.get("cfpwd")){
       setMsg({
         open:true,
         message:'The entered passwords do not match!'
       })
     }
-    else{
-      axios.post('/', data)
+    else{   //先发送getUser请求得到id，再发送改密请求
+      axios.post('http://localhost:8080/getUserByCookie')
       .then((res)=>{
-        if(res === "success"){
+        if(res.data !== "failed"){
+          const data={
+            id:res.data.id,
+            password:fd.get('pwd')
+          }
+          return axios.post("http://localhost:8080/updatePassword", data); //已登录，再次发送改密码请求
+        } else {
           setMsg({
             open:true,
-            message:'Success!'
+            message:'Plz Login First!'
           })
+          navigate("/welcome"); //未登录就跳转到登录页面
         }
-        else {
+      }).then(res =>{
+        if(res.data === "success"){ //改密成功
           setMsg({
             open:true,
-            message:'Failed!'
+            message:'success!'
+          })
+        } else{ //改密失败
+          setMsg({
+            open:true,
+            message:'success!'
           })
         }
+      }).catch(err =>{
+        console.log(err);
       })
     }
   }
-
+//登出请求
   const logout = (e) =>{
-    //登出请求
-    axios.post('http://localhost:8080/logout')
-    .then((res)=>{
+    //根据用户类型决定请求路径
+    const url= 'http://localhost:8080/'+ props.privilege==="user" ? "logout":"admin/logout";
+    axios.post(url)
+    .then(()=>{
       navigate('/welcome'); //转到登录页面
     })
   }

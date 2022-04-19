@@ -19,19 +19,19 @@ export default function AdminLogin() {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
         const data = {
-            phoneNumber: fd.get('act'),
+            id: fd.get('act'),
             password: fd.get('psw'),
         }
-        const phone_reg = /^[0-9]{11}$/;
-        if(!phone_reg.test(data.phoneNumber)){
+        const phone_reg = /^[0-9]{9}$/;
+        if(!phone_reg.test(data.id)){
             setMsg({
                 open:true,
-                message:'Incorrect PhoneNumber!'
+                message:'Incorrect id!'
             });
         }
         else{
-            // axios.defaults.withCredentials = true;
-            axios.post('http://localhost:8080/login', data)
+            axios.defaults.withCredentials = true;
+            axios.post('http://localhost:8080/admin/login', data)
             .then((res)=>{
                 if(res === 'success'){
                     navigate("/adminhome");
@@ -43,6 +43,8 @@ export default function AdminLogin() {
                         message:'Login Failed!'
                     })
                 }
+            }).catch(err=>{
+                console.log(err);
             })
         }
     }

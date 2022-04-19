@@ -12,7 +12,7 @@ export default function Header(props){
           <Typography variant="h6" noWrap component="div">
             Welcome! {props.id}
           </Typography>
-          <User />
+          <User privilege={props.privilege}/>
         </Toolbar>
     )
 }

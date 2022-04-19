@@ -5,11 +5,13 @@ import Tab from '@mui/material/Tab';
 
 export default function UserTabs(props) {
   const [value, setValue] = React.useState(0);
-  const funcArr = ['Reservations', 'Borrowed', 'Search'];
+  const funcArr = ['Search','Reservations', 'Borrowed' ];
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    props.getFunc(funcArr[value]);
+    // console.log(funcArr[value]);
+    props.getFunc(funcArr[newValue]);
+    // props.getFunc();
   };
 
   return (
