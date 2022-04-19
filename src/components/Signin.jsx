@@ -6,6 +6,8 @@ import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
+import '../utils/cookie'
+import { loginUser } from '../utils/cookie';
 
 export default function Signin() {
     const [msg, setMsg] = React.useState({
@@ -22,20 +24,20 @@ export default function Signin() {
             id: fd.get('act'),
             password: fd.get('psw'),
         }
-        const phone_reg = /^[0-9]{11}$/;
-        if(!phone_reg.test(data.phoneNumber)){
+        const phone_reg = /^1[0-9]{10}$/;
+        if(!phone_reg.test(data.id)){
             setMsg({
                 open:true,
                 message:'Incorrect PhoneNumber!'
             });
         }
         else{
-            // axios.defaults.withCredentials = true;
+            axios.defaults.withCredentials = true;
             axios.post('http://localhost:8080/login', data)
             .then((res)=>{
-                if(res === 'success'){
+                if(res.data === 'success'){
+                    // loginUser();
                     navigate("/userhome");
-                    console.log("login success");
                 }
                 else{
                     setMsg({
@@ -43,10 +45,11 @@ export default function Signin() {
                         message:'Login Failed!'
                     })
                 }
+            }).catch(err=>{
+                console.log(err);
             })
         }
     }
-    
     const handleClose = ()=>{
         setMsg({...msg, open:false})
     }

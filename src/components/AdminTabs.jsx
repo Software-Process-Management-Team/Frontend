@@ -17,9 +17,10 @@ export default function AdminTabs() {
       onChange={handleChange} 
       orientation="vertical"
       >
-        <Tab label="admin Tabs" />
-        <Tab label="admin Tabs" />
-        <Tab label="admin Tabs" />
+        <Tab label="Add Books" />
+        <Tab label="Delete Books" />
+        <Tab label="Returns" />
+        <Tab label="Lends" />
       </Tabs>
     </Box>
   );
