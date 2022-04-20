@@ -59,7 +59,14 @@ export default function User(props) {
       id:loginUser(),
       password:fd.get('pwd')
     }
-    if(data.password !== fd.get("cfpwd")){
+    const pwd_reg = /^[0-9]{6}$/
+    if(!pwd_reg.test(data.password)){
+      setMsg({
+        open:true,
+        message:'The Password Must be 6 Digits!'
+      })
+    }
+    else if(data.password !== fd.get("cfpwd")){
       setMsg({
         open:true,
         message:'The entered passwords do not match!'
