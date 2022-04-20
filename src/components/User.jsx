@@ -19,6 +19,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Snackbar } from '@mui/material';
 import axios from 'axios';
+import {loginUser ,logOut} from "../utils/cookie";
 
 export default function User(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,39 +55,33 @@ export default function User(props) {
   const handleSubmit = (e)=>{
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    
-    if(fd.get("pwd") !== fd.get("cfpwd")){
+    const data={
+      id:loginUser(),
+      password:fd.get('pwd')
+    }
+    if(data.password !== fd.get("cfpwd")){
       setMsg({
         open:true,
         message:'The entered passwords do not match!'
       })
     }
     else{   //先发送getUser请求得到id，再发送改密请求
-      axios.post('http://localhost:8080/getUserByCookie')
+      axios.defaults.withCredentials=true;
+      axios.post('http://localhost:8080/updatePassword', data, {
+        headers:{
+          "content-type": "application/x-www-form-urlencoded"
+        }
+      })
       .then((res)=>{
-        if(res.data !== "failed"){
-          const data={
-            id:res.data.id,
-            password:fd.get('pwd')
-          }
-          return axios.post("http://localhost:8080/updatePassword", data); //已登录，再次发送改密码请求
+        if(res.data === "success"){
+          setMsg({
+            open:true,
+            message:'success!'
+          })
         } else {
           setMsg({
             open:true,
-            message:'Plz Login First!'
-          })
-          navigate("/welcome"); //未登录就跳转到登录页面
-        }
-      }).then(res =>{
-        if(res.data === "success"){ //改密成功
-          setMsg({
-            open:true,
-            message:'success!'
-          })
-        } else{ //改密失败
-          setMsg({
-            open:true,
-            message:'success!'
+            message:'failed!'
           })
         }
       }).catch(err =>{
@@ -97,9 +92,11 @@ export default function User(props) {
 //登出请求
   const logout = (e) =>{
     //根据用户类型决定请求路径
-    const url= 'http://localhost:8080/'+ props.privilege==="user" ? "logout":"admin/logout";
+    const url= 'http://localhost:8080/'+ (props.privilege==="user" ? "logout":"admin/logout");
     axios.post(url)
     .then(()=>{
+      logOut();
+      console.log(loginUser())
       navigate('/welcome'); //转到登录页面
     })
   }
@@ -183,16 +180,14 @@ export default function User(props) {
         <DialogContent>
           
           <TextField
-            autoFocus
             margin="dense"
             name="pwd"
-            label="New Password"
+            label="The Password Must be 6 Digits"
             type="password"
             fullWidth
             variant="standard"
           />
           <TextField
-            autoFocus
             margin="dense"
             name="cfpwd"
             label="Confirm New Password"

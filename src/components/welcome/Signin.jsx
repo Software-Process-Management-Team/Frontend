@@ -6,8 +6,8 @@ import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
-import '../utils/cookie'
-import { loginUser } from '../utils/cookie';
+import '../../utils/cookie'
+import { onLogin } from '../../utils/cookie';
 
 export default function Signin() {
     const [msg, setMsg] = React.useState({
@@ -36,7 +36,7 @@ export default function Signin() {
             axios.post('http://localhost:8080/login', data)
             .then((res)=>{
                 if(res.data === 'success'){
-                    // loginUser();
+                    onLogin(data.id);
                     navigate("/userhome");
                 }
                 else{

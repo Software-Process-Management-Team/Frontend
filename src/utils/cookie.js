@@ -1,11 +1,11 @@
 import cookie from "react-cookies";
 export const loginUser = () =>{
-    return cookie.load('cookieUserName');
+    return cookie.load('cookieID');
 }
-export const onLogin = (user) =>{
-    cookie.save('cookieUserName', user, {path:'/'})
+export const onLogin = (userID) =>{
+    cookie.save('cookieID', userID, {path:'/'})
 }
-export const logout = ()=>{
-    cookie.remove('cookieUserName')
+export const logOut = ()=>{
+    cookie.remove('cookieID')
     window.location.href = '/welcome'
 }

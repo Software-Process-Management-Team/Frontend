@@ -19,11 +19,11 @@ export default function AdminLogin() {
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
         const data = {
-            id: fd.get('act'),
+            adminId: fd.get('act'),
             password: fd.get('psw'),
         }
         const phone_reg = /^[0-9]{9}$/;
-        if(!phone_reg.test(data.id)){
+        if(!phone_reg.test(data.adminId)){
             setMsg({
                 open:true,
                 message:'Incorrect id!'
@@ -33,7 +33,7 @@ export default function AdminLogin() {
             axios.defaults.withCredentials = true;
             axios.post('http://localhost:8080/admin/login', data)
             .then((res)=>{
-                if(res === 'success'){
+                if(res.data === 'success'){
                     navigate("/adminhome");
                     console.log("login success");
                 }

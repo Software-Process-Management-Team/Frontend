@@ -1,6 +1,6 @@
 //内容页布局
 import * as React from 'react';
-import SearchBook from './SearchBook';
+import SearchBook from './Search/SearchBook';
 import MyReser from './MyReser';
 import MyBorrowed from './MyBorrowed';
 
@@ -24,6 +24,6 @@ export default function Content(props){
 
     }
     else {
-        
+
     }
 }

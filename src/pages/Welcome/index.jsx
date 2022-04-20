@@ -9,7 +9,7 @@ import MuiAlert from '@mui/material/Alert';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import './index.css'
-import LoginTabs from '../../components/LoginTabs';
+import LoginTabs from '../../components/welcome/LoginTabs';
 
 //主题
 const theme = createTheme();
