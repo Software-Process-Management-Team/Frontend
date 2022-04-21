@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Button } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
+import { onLogin } from '../../utils/cookie';
 
 export default function AdminLogin() {
     const [msg, setMsg] = React.useState({
@@ -34,8 +35,8 @@ export default function AdminLogin() {
             axios.post('http://localhost:8080/admin/login', data)
             .then((res)=>{
                 if(res.data === 'success'){
+                    onLogin(data.adminId);
                     navigate("/adminhome");
-                    console.log("login success");
                 }
                 else{
                     setMsg({

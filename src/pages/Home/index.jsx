@@ -7,8 +7,8 @@ import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 
-import DrawerLeft from '../../components/DrawerLeft';
-import LeftTabs from '../../components/LeftTabs';
+import DrawerLeft from '../../components/Left/DrawerLeft';
+import LeftTabs from '../../components/Left/LeftTabs';
 import Header from '../../components/Header';
 import Content from '../../components/Content';
 
@@ -34,7 +34,6 @@ export default function Home(props) {
 
     //获取子组件当前选择的功能
     const getFunc = (newFunc) =>{
-      console.log(newFunc);
       setFunc(newFunc);
     }
 

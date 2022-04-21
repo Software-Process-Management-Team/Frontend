@@ -12,9 +12,6 @@ export default function SearchBook(){
         console.log(sk);
         setSearchKey(sk);
     }
-    // console.log(searchKey);
-    // axios.get('http://localhost:8080/', {searchKey})
-    // .then()
     return (
         <Box sx={{width:"100%"}}>
             <FuncHeader func="Find Books" />

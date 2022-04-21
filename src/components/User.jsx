@@ -49,7 +49,7 @@ export default function User(props) {
   //提示消息收起
   const handleClose = ()=>{
     setMsg({...msg, open:false})
-}
+  }
 
   
   const handleSubmit = (e)=>{
@@ -72,7 +72,7 @@ export default function User(props) {
         message:'The entered passwords do not match!'
       })
     }
-    else{   //先发送getUser请求得到id，再发送改密请求
+    else{   //从cookie中得到id，再发送改密请求
       axios.defaults.withCredentials=true;
       axios.post('http://localhost:8080/updatePassword', data, {
         headers:{
