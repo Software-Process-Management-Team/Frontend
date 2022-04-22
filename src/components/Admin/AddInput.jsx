@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Box, TextField, Button } from '@mui/material';
+import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import { width } from '@mui/system';
 
 export default function AddInput(props){
     const apikey ="12483.0b892ea1a54c7a1cec0fb90429c74f1e.481eb401e543ce7b26b176633f7b8be9"
@@ -9,14 +11,17 @@ export default function AddInput(props){
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
         const isbn= fd.get("isbn");
+        const num = fd.get("num");
 
         axios.defaults.withCredentials=false;
         axios.get(`https://api.jike.xyz/situ/book/isbn/${isbn}?apikey=${apikey}`)
         .then(res=>{
             const book = {
-                ISBN:isbn,
-                Name: res.data.data.name,
-                Author: res.data.data.author
+                book_name: res.data.data.name,
+                book_author: res.data.data.author,
+                isbn_code: "0",
+                isbn_number:isbn,
+                num: num
             }
             props.getBookInfo(book);
         }).catch(err=>{
@@ -25,21 +30,29 @@ export default function AddInput(props){
     }
 
     return (
-        <Box sx={{'& .MuiTextField-root': { m: 1, width: '50%' },
+        <Box 
+            sx={{
              width:"100%", 
-             display:"flex", 
+             display:"flex",
              alignItems:"baseline",
              justifyContent:"center"}}
              component="form" 
              onSubmit={handleSubmit}
         >
-            <TextField name='isbn' label="Plz type in ISBN" variant='standard' />
-            <Button 
-                variant='contained' 
-                type='submit'
-                startIcon={<AddIcon />}>
-                Add Book
-            </Button>
+            <Stack spacing={3}
+                sx={{
+                    marginTop:"10px",
+                    width:"50%"}}>
+                <TextField name='isbn' label="Plz type in ISBN" variant='standard' required/>
+                <TextField name='num' label="Amount" type="number"  variant="outlined" required/>
+                <Button 
+                  variant='contained' 
+                  type='submit'
+                  startIcon={<AddIcon />}
+                  sx={{width:"150px", margin:"auto"}}>
+                  Add Book
+                </Button>
+            </Stack>
         </Box>
     )
 }

@@ -15,12 +15,18 @@ import InfoIcon from '@mui/icons-material/Info';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AttributionIcon from '@mui/icons-material/Attribution';
 
+import BarCode from './BarCode';
+
 import axios from 'axios';
 
 export default function AddBook(){
     //可能还要加一个输入框输入加入的数量
     const [bookInfo, setBookInfo] = React.useState(null);
     const [Diaopen, setDiaOpen] = React.useState(false);
+    const [barcodeOpen, setBarcodeOpen] = React.useState(false);
+
+    const [bookid, setBookid] = React.useState([]);
+
     const getBookInfo = (info)=>{
         setBookInfo(info);
         setDiaOpen(true); //打开对话框
@@ -30,13 +36,18 @@ export default function AddBook(){
     const handleDiaClose = () => {
         setDiaOpen(false);
     };
+    const handleBarcodeClose = ()=>{
+        setBarcodeOpen(false);
+    }
 
     //添加图书
     const addBook=()=>{
         console.log(bookInfo);
         // axios.post('', bookInfo) 
 
+        setBookid(["12675495", "12346983", "59756813", "68796423", "47595647"]);
         setDiaOpen(false);
+        setBarcodeOpen(true);
     }
     
     return (
@@ -47,26 +58,40 @@ export default function AddBook(){
         </Box>
         {/* 确认对话框 */}
         <Dialog open={Diaopen} onClose={handleDiaClose}>
-        <Box sx={{width:"500px"}}>
-        <DialogTitle>Check Book Info</DialogTitle>
-        <DialogContent>
-          <InfoList bookInfo={bookInfo}/>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="contained" 
+          <Box sx={{width:"500px"}}>
+            <DialogTitle>Check Book Info</DialogTitle>
+            <DialogContent>
+                <InfoList bookInfo={bookInfo}/>
+            </DialogContent>
+            <DialogActions>
+                <Button variant="contained" 
                   onClick={addBook}
                   disabled={bookInfo === "error"? true: false}
-          >ADD</Button>
-        </DialogActions>
-        </Box>
-      </Dialog>
+                >OK</Button>
+            </DialogActions>
+          </Box>
+        </Dialog>
+        {/* 条形码对话框 */}
+        <Dialog open={barcodeOpen} onClose={handleBarcodeClose}>
+          <Box sx={{width:"100%"}}>
+            <DialogTitle>Barcodes of New Books</DialogTitle>
+            <DialogContent>
+                <BarCode bookid={bookid}/>
+            </DialogContent>
+            <DialogActions>
+                <Button variant="contained" 
+                  onClick={handleBarcodeClose}
+                >OK</Button>
+            </DialogActions>
+          </Box>
+        </Dialog>
       </React.Fragment>
     )
 }
 
 //确认对话框中的图书信息列表
 function InfoList(props){
-    const {ISBN, Name, Author} = props.bookInfo;
+    const {isbn_number, book_name, book_author} = props.bookInfo;
     return (
         <List dense>
             <ListItem>
@@ -77,7 +102,7 @@ function InfoList(props){
                     primary="ISBN: "
                 />
                 <ListItemText
-                    primary={ISBN}
+                    primary={isbn_number}
                 />
             </ListItem>
 
@@ -89,7 +114,7 @@ function InfoList(props){
                     primary="Name: "
                 />
                 <ListItemText
-                    primary={Name}
+                    primary={book_name}
                 />
             </ListItem>
             <ListItem>
@@ -100,7 +125,7 @@ function InfoList(props){
                     primary="Author: "
                 />
                 <ListItemText
-                    primary={Author}
+                    primary={book_author}
                 />
             </ListItem>
         </List>
