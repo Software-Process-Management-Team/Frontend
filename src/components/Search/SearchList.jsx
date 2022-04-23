@@ -15,6 +15,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import DetailList from './DetailList';
+import Snackbar from '@mui/material/Snackbar';
 
 import axios from 'axios';
 
@@ -85,6 +86,13 @@ export default function SearchList() {
   const [detailOpen, setDetailOpen] = React.useState(false);
   const [detailBook, setDetailBook] = React.useState(null);
   const [detailBookList, setDetailBookList] = React.useState([]);
+  const [msg, setMsg] = React.useState({
+    open:false,
+    message:''
+  });
+  const handleMsgClose = ()=>{
+    setMsg({...msg, open:false})
+  }
 
   const seeDetails =(e)=>{
     
@@ -102,6 +110,23 @@ export default function SearchList() {
   const handleDetailClose = () => {
     setDetailOpen(false);
   };
+
+  const getReserveData = (reserData)=>{
+    console.log(reserData);
+    // axios.post("http://loacalhost:8080/reservebook", reserData)
+    // .then(res=>{
+    //   setMsg({
+    //     open: true,
+    //     message: res.data
+    //   })
+    //   setDetailOpen(false);
+    // })
+    setMsg({
+      open: true,
+      message: "res.data"
+    });
+    setDetailOpen(false);
+  }
 
   return (
     <React.Fragment>
@@ -147,7 +172,7 @@ export default function SearchList() {
           <Box sx={{width:"100%"}}>
             <DialogTitle>Details</DialogTitle>
             <DialogContent>
-              <DetailList book={detailBook} list={detailBookList} />
+              <DetailList book={detailBook} list={detailBookList} getReserveData={getReserveData}/>
             </DialogContent>
             <DialogActions>
                 <Button 
@@ -156,6 +181,12 @@ export default function SearchList() {
             </DialogActions>
           </Box>
         </Dialog>
+        <Snackbar
+            anchorOrigin={{ vertical:'top', horizontal:'center' }}
+            open={msg.open}
+            onClose={handleMsgClose}
+            message={msg.message}
+        />
     </React.Fragment>
   );
 }

@@ -17,15 +17,16 @@ export default function DelBook(){
         setMsg({...msg, open:false})
     }
 
+    //得到子组件传来的需要删除的bookid，得到之后发送/deletebook请求
     const getBookid = (id)=>{
-        // axios.get()
-
-        setMsg({
-            open: true,
-            message: "success"
-        });
-        
-        
+      const bid ={book_id: id};
+        // axios.get("http://localhost:8080/deletebook", {param:bid})
+        // .then(res=>{
+          // setMsg({
+          //   open: true,
+          //   message: res.data
+          // });
+        // })        
     }
 
     return (

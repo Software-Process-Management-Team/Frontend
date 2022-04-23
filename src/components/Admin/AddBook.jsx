@@ -20,11 +20,11 @@ import BarCode from './BarCode';
 import axios from 'axios';
 
 export default function AddBook(){
-    //可能还要加一个输入框输入加入的数量
+    //bookInfo是子组件AddInput传上来的需要添加的书的信息
     const [bookInfo, setBookInfo] = React.useState(null);
     const [Diaopen, setDiaOpen] = React.useState(false);
     const [barcodeOpen, setBarcodeOpen] = React.useState(false);
-
+    //请求addbook后，会返回一个bookid数组
     const [bookid, setBookid] = React.useState([]);
 
     const getBookInfo = (info)=>{
@@ -45,6 +45,7 @@ export default function AddBook(){
         console.log(bookInfo);
         // axios.post('', bookInfo) 
 
+        //这些是写在post.then里的，setBookid参数是post返回的数据
         setBookid(["12675495", "12346983", "59756813", "68796423", "47595647"]);
         setDiaOpen(false);
         setBarcodeOpen(true);

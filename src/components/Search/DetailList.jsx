@@ -17,6 +17,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AttributionIcon from '@mui/icons-material/Attribution';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import {loginUser} from "../../utils/cookie"
 
 /*
 props.book = {
@@ -34,8 +35,12 @@ export default function DetailList(props){
     const {bookName, bookAuthor, isbnNumber, location} = props.book;
     const {list} = props;
 
-    const reserveBook = ()=>{
-        
+    const reserveBook = (e)=>{
+        const data = {
+            user_id: loginUser(),
+            book_id: e.currentTarget.id
+        }
+        props.getReserveData(data);
     }
     return (
         <Box sx={{width:"100%"}}>
@@ -98,7 +103,7 @@ export default function DetailList(props){
         <TableBody>
           {list.map((item) => (
             <TableRow
-              key={item.available}
+              key={item.bookID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">

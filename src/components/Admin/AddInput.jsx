@@ -3,8 +3,8 @@ import { Box, TextField, Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
-import { width } from '@mui/system';
 
+//在这里获取要添加的isbn和数量，调用isbn接口，返回数据传给父组件AddBook，由父组件调用后端addbook接口
 export default function AddInput(props){
     const apikey ="12483.0b892ea1a54c7a1cec0fb90429c74f1e.481eb401e543ce7b26b176633f7b8be9"
     const handleSubmit =(e)=>{
