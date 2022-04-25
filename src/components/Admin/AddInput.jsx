@@ -6,7 +6,7 @@ import axios from 'axios';
 
 //在这里获取要添加的isbn和数量，调用isbn接口，返回数据传给父组件AddBook，由父组件调用后端addbook接口
 export default function AddInput(props){
-    const apikey ="12483.0b892ea1a54c7a1cec0fb90429c74f1e.481eb401e543ce7b26b176633f7b8be9"
+    const apikey ="12441.4139ad2e885aca5f00d31eaf033dcee1.ede4f4ada9f76e49bab1308079e38bad"
     const handleSubmit =(e)=>{
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -14,6 +14,7 @@ export default function AddInput(props){
         const num = fd.get("num");
 
         axios.defaults.withCredentials=false;
+        
         axios.get(`https://api.jike.xyz/situ/book/isbn/${isbn}?apikey=${apikey}`)
         .then(res=>{
             const book = {
@@ -27,6 +28,34 @@ export default function AddInput(props){
         }).catch(err=>{
             props.getBookInfo("error")
         })
+
+        // google的ISBN api 可以直接调用，但需要挂梯子， 且返回数据格式不同，需要更改
+        // axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
+        // .then(res=>{
+        //     console.log(res);
+
+        //     // const book = {
+        //     //     book_name: "Crime and Punishment",
+        //     //     book_author: "tstyfsk",
+        //     //     isbn_code: null,
+        //     //     isbn_number:"9787020139279",
+        //     //     num: num
+        //     // }
+        //     // props.getBookInfo(book);
+
+        // }).catch(err=>{
+        //     props.getBookInfo("error")
+        // })
+
+        // 测试数据, isbn_code 默认接收null
+        // const book = {
+        //     book_name: "Crime and Punishment",
+        //     book_author: "tstyfsk",
+        //     isbn_code: null,
+        //     isbn_number:9787020139279,
+        //     num: num
+        // }
+        // props.getBookInfo(book);
     }
 
     return (

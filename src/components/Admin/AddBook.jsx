@@ -19,116 +19,122 @@ import BarCode from './BarCode';
 
 import axios from 'axios';
 
-export default function AddBook(){
-    //bookInfo是子组件AddInput传上来的需要添加的书的信息
-    const [bookInfo, setBookInfo] = React.useState(null);
-    const [Diaopen, setDiaOpen] = React.useState(false);
-    const [barcodeOpen, setBarcodeOpen] = React.useState(false);
-    //请求addbook后，会返回一个bookid数组
-    const [bookid, setBookid] = React.useState([]);
+export default function AddBook() {
+  //bookInfo是子组件AddInput传上来的需要添加的书的信息
+  const [bookInfo, setBookInfo] = React.useState(null);
+  const [Diaopen, setDiaOpen] = React.useState(false);
+  const [barcodeOpen, setBarcodeOpen] = React.useState(false);
+  //请求addbook后，会返回一个bookid数组
+  const [bookid, setBookid] = React.useState([]);
 
-    const getBookInfo = (info)=>{
-        setBookInfo(info);
-        setDiaOpen(true); //打开对话框
-    }
+  const getBookInfo = (info) => {
+    setBookInfo(info);
+    setDiaOpen(true); //打开对话框
+  }
 
-    //提示对话框的收起
-    const handleDiaClose = () => {
-        setDiaOpen(false);
-    };
-    const handleBarcodeClose = ()=>{
-        setBarcodeOpen(false);
-    }
+  //提示对话框的收起
+  const handleDiaClose = () => {
+    setDiaOpen(false);
+  };
+  const handleBarcodeClose = () => {
+    setBarcodeOpen(false);
+  }
 
-    //添加图书
-    const addBook=()=>{
-        console.log(bookInfo);
-        // axios.post('', bookInfo) 
-
+  //添加图书
+  const addBook = () => {
+    axios.defaults.withCredentials = true
+    console.log(bookInfo);
+    axios.post('http://localhost:8080/addbook', null, {
+      params: bookInfo
+    })
+      .then((res) => {
+        
         //这些是写在post.then里的，setBookid参数是post返回的数据
-        setBookid(["12675495", "12346983", "59756813", "68796423", "47595647"]);
+        setBookid(res.data.list);
         setDiaOpen(false);
         setBarcodeOpen(true);
-    }
-    
-    return (
-      <React.Fragment>
-        <Box sx={{width:"100%"}}>
-            <FuncHeader func="Add Books" />
-            <AddInput getBookInfo={getBookInfo}/>
+      })
+
+  }
+
+  return (
+    <React.Fragment>
+      <Box sx={{ width: "100%" }}>
+        <FuncHeader func="Add Books" />
+        <AddInput getBookInfo={getBookInfo} />
+      </Box>
+      {/* 确认对话框 */}
+      <Dialog open={Diaopen} onClose={handleDiaClose}>
+        <Box sx={{ width: "500px" }}>
+          <DialogTitle>Check Book Info</DialogTitle>
+          <DialogContent>
+            <InfoList bookInfo={bookInfo} />
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained"
+              onClick={addBook}
+              disabled={bookInfo === "error" ? true : false}
+            >OK</Button>
+          </DialogActions>
         </Box>
-        {/* 确认对话框 */}
-        <Dialog open={Diaopen} onClose={handleDiaClose}>
-          <Box sx={{width:"500px"}}>
-            <DialogTitle>Check Book Info</DialogTitle>
-            <DialogContent>
-                <InfoList bookInfo={bookInfo}/>
-            </DialogContent>
-            <DialogActions>
-                <Button variant="contained" 
-                  onClick={addBook}
-                  disabled={bookInfo === "error"? true: false}
-                >OK</Button>
-            </DialogActions>
-          </Box>
-        </Dialog>
-        {/* 条形码对话框 */}
-        <Dialog open={barcodeOpen} onClose={handleBarcodeClose}>
-          <Box sx={{width:"100%"}}>
-            <DialogTitle>Barcodes of New Books</DialogTitle>
-            <DialogContent>
-                <BarCode bookid={bookid}/>
-            </DialogContent>
-            <DialogActions>
-                <Button variant="contained" 
-                  onClick={handleBarcodeClose}
-                >OK</Button>
-            </DialogActions>
-          </Box>
-        </Dialog>
-      </React.Fragment>
-    )
+      </Dialog>
+      {/* 条形码对话框 */}
+      <Dialog open={barcodeOpen} onClose={handleBarcodeClose}>
+        <Box sx={{ width: "100%" }}>
+          <DialogTitle>Barcodes of New Books</DialogTitle>
+          <DialogContent>
+            <BarCode bookid={bookid} />
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained"
+              onClick={handleBarcodeClose}
+            >OK</Button>
+          </DialogActions>
+        </Box>
+      </Dialog>
+    </React.Fragment>
+  )
 }
 
 //确认对话框中的图书信息列表
-function InfoList(props){
-    const {isbn_number, book_name, book_author} = props.bookInfo;
-    return (
-        <List dense>
-            <ListItem>
-              <ListItemIcon>
-                <InfoIcon />
-              </ListItemIcon>
-                <ListItemText
-                    primary="ISBN: "
-                />
-                <ListItemText
-                    primary={isbn_number}
-                />
-            </ListItem>
+function InfoList(props) {
+  const { isbn_number, book_name, book_author } = props.bookInfo;
+  return (
+    <List dense>
+      <ListItem>
+        <ListItemIcon>
+          <InfoIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary="ISBN: "
+        />
+        <ListItemText
+          primary={isbn_number}
+        />
+      </ListItem>
 
-            <ListItem>
-              <ListItemIcon>
-                <MenuBookIcon />
-              </ListItemIcon>
-                <ListItemText
-                    primary="Name: "
-                />
-                <ListItemText
-                    primary={book_name}
-                />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <AttributionIcon />
-              </ListItemIcon>
-                <ListItemText
-                    primary="Author: "
-                />
-                <ListItemText
-                    primary={book_author}
-                />
-            </ListItem>
-        </List>
-    )
+      <ListItem>
+        <ListItemIcon>
+          <MenuBookIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary="Name: "
+        />
+        <ListItemText
+          primary={book_name}
+        />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon>
+          <AttributionIcon />
+        </ListItemIcon>
+        <ListItemText
+          primary="Author: "
+        />
+        <ListItemText
+          primary={book_author}
+        />
+      </ListItem>
+    </List>
+  )
 }
