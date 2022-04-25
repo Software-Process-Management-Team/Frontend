@@ -19,17 +19,6 @@ import Snackbar from '@mui/material/Snackbar';
 
 import axios from 'axios';
 
-function createData(isbn, name, author, amount, location) {
-  return { isbn, name, author, amount, location};
-}
-
-const rows = [
-  createData('9787111599715', '计算机网络（原书第7版）', 'James F. Kurose / Keith W. Ross', 10, '4F'),
-  createData('9787115275790', "JavaScript高级程序设计（第3版）", '[美] Nicholas C. Zakas', 20, '4F'),
-  createData('9787302287568', 'Java从入门到精通', '明日科技', 15, '4F'),
-  createData('9787111076452', '数据结构、算法与应用', '（美）Sartaj Sahni', 5, '4F'),
-];
-
 const books = [
   {
     bookID: "00000001",
@@ -81,8 +70,11 @@ function dataFilter(booklist){
   })
   return [book, list];
 }
-
-export default function SearchList() {
+const URL = 'http://124.70.53.71:8080';
+export default function SearchList(props) {
+  
+  const {preInfo} = props;
+  console.log(preInfo);
   const [detailOpen, setDetailOpen] = React.useState(false);
   const [detailBook, setDetailBook] = React.useState(null);
   const [detailBookList, setDetailBookList] = React.useState([]);
@@ -90,22 +82,22 @@ export default function SearchList() {
     open:false,
     message:''
   });
+
   const handleMsgClose = ()=>{
     setMsg({...msg, open:false})
   }
-
   const seeDetails =(e)=>{
     
     const bid = e.currentTarget.id;
-    // axios.get("http://localhost:8080/getbook", {param:{isbn_code:bid}})
-    // .then(res =>{
-      // setDetailOpen(true);
-    //   console.log(res);
-    // })
-    const details = dataFilter(books);
-    setDetailBook(details[0]);
-    setDetailBookList(details[1]);
-    setDetailOpen(true);
+    axios.get(URL+"/getbook", {param:{isbn_code:bid}})
+    .then(res =>{
+      setDetailOpen(true);
+      console.log(res);
+    })
+    // const details = dataFilter(books);
+    // setDetailBook(details[0]);
+    // setDetailBookList(details[1]);
+    // setDetailOpen(true);
   }
   const handleDetailClose = () => {
     setDetailOpen(false);
@@ -143,20 +135,21 @@ export default function SearchList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {
+            preInfo.map((row) => (
             <TableRow
-              key={row.isbn}
+              key={row.isbnNumber}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.isbn}
+                {row.isbnNumber}
               </TableCell>
-              <TableCell align="left">{row.name}</TableCell>
-              <TableCell align="left">{row.author}</TableCell>
+              <TableCell align="left">{row.bookName}</TableCell>
+              <TableCell align="left">{row.bookAuthor}</TableCell>
               <TableCell align="left">{row.amount}</TableCell>
               <TableCell align="left">{row.location}</TableCell>
               <TableCell align="center">
-                <IconButton color="success" id={row.isbn} onClick={seeDetails}>
+                <IconButton color="success" id={row.isbnNumber} onClick={seeDetails}>
                   <PreviewIcon />
                 </IconButton>
               </TableCell>

@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 
 export default function UserTabs(props) {
   const [value, setValue] = React.useState(0);
-  const funcArr = ['Search','Reservations', 'Borrowed' ];
+  const funcArr = ['Search', 'Borrowed' ];
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -22,7 +22,6 @@ export default function UserTabs(props) {
       orientation="vertical"
       >
         <Tab label="Find Books" />
-        <Tab label="My Reservations" />
         <Tab label="My Borrowed Items" />
       </Tabs>
     </Box>

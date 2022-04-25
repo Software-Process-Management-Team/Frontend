@@ -9,6 +9,7 @@ import axios from 'axios';
 import '../../utils/cookie'
 import { onLogin } from '../../utils/cookie';
 
+const URL = 'http://124.70.53.71:8080';
 export default function Signin() {
     const [msg, setMsg] = React.useState({
         open:false,
@@ -33,7 +34,7 @@ export default function Signin() {
         }
         else{
             axios.defaults.withCredentials = true;
-            axios.post('http://localhost:8080/login', data)
+            axios.post(URL+'/login', data)
             .then((res)=>{
                 if(res.data === 'success'){
                     onLogin(data.id);

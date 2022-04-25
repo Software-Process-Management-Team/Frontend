@@ -18,6 +18,7 @@ import AttributionIcon from '@mui/icons-material/Attribution';
 import BarCode from './BarCode';
 
 import axios from 'axios';
+const URL = 'http://124.70.53.71:8080';
 
 export default function AddBook() {
   //bookInfo是子组件AddInput传上来的需要添加的书的信息
@@ -44,16 +45,21 @@ export default function AddBook() {
   const addBook = () => {
     axios.defaults.withCredentials = true
     console.log(bookInfo);
-    axios.post('http://localhost:8080/addbook', null, {
-      params: bookInfo
-    })
+    // const url = `http://localhost:8080/addbook?book_name=${bookInfo.book_name}&book_author=${bookInfo.book_author}&isbn_code=0&isbn_number=${bookInfo.isbn_number}&num=${bookInfo.num}`;
+    // axios.post(url).then(res=>{
+    //   console.log(res);
+    // })
+
+    axios.post(URL+'/addbook', bookInfo)
       .then((res) => {
-        
+        console.log(res);
         //这些是写在post.then里的，setBookid参数是post返回的数据
         setBookid(res.data.list);
         setDiaOpen(false);
         setBarcodeOpen(true);
       })
+
+    
 
   }
 

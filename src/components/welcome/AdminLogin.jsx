@@ -8,6 +8,7 @@ import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 import { onLogin } from '../../utils/cookie';
 
+const URL = 'http://124.70.53.71:8080/admin';
 export default function AdminLogin() {
     const [msg, setMsg] = React.useState({
         open:false,
@@ -32,7 +33,7 @@ export default function AdminLogin() {
         }
         else{
             axios.defaults.withCredentials = true;
-            axios.post('http://localhost:8080/admin/login', data)
+            axios.post(URL+'/login', data)
             .then((res)=>{
                 if(res.data === 'success'){
                     onLogin(data.adminId);

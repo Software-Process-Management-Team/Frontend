@@ -5,15 +5,20 @@ import FuncHeader from '../FuncHeader';
 import SearchBox from './SearchBox';
 import SearchList from './SearchList';
 import axios from 'axios';
-
+const URL = 'http://124.70.53.71:8080';
 export default function SearchBook() {
     const [searchKey, setSearchKey] = React.useState("");
+    const [preInfo, setPreInfo] = React.useState([]);
     const getSearchKey = (sk) => {
         setSearchKey(sk);
-        console.log("搜索内容：",sk);
-        axios.get("http://localhost:8080/searchbook", { params:{info: sk}})
+        axios.defaults.withCredentials=true;
+        // console.log(URL+"/searchbook");
+        axios.get(URL+"/searchbook", {params:{info: sk}})
             .then(res => {
-                console.log("搜索结果：", res);
+                console.log(res);
+                if(res.data !== 'failed'){
+                    setPreInfo(res.data);
+                }
             }).catch(err => {
                 console.log(err);
             })
@@ -23,7 +28,7 @@ export default function SearchBook() {
         <Box sx={{ width: "100%" }}>
             <FuncHeader func="Find Books" />
             <SearchBox getSearchKey={getSearchKey} />
-            <SearchList />
+            <SearchList preInfo={preInfo}/>
         </Box>
     )
 }

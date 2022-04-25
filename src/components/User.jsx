@@ -20,7 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Snackbar } from '@mui/material';
 import axios from 'axios';
 import {loginUser ,logOut} from "../utils/cookie";
-
+const URL = 'http://124.70.53.71:8080/';
 export default function User(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -74,7 +74,7 @@ export default function User(props) {
     }
     else{   //从cookie中得到id，再发送改密请求
       axios.defaults.withCredentials=true;
-      axios.post('http://localhost:8080/updatePassword', data, {
+      axios.post(URL+'/updatePassword', data, {
         headers:{
           "content-type": "application/x-www-form-urlencoded"
         }
@@ -99,7 +99,7 @@ export default function User(props) {
 //登出请求
   const logout = (e) =>{
     //根据用户类型决定请求路径
-    const url= 'http://localhost:8080/'+ (props.privilege==="user" ? "logout":"admin/logout");
+    const url= URL + (props.privilege==="user" ? "logout":"admin/logout");
     axios.post(url)
     .then(()=>{
       logOut();

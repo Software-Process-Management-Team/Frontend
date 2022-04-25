@@ -4,7 +4,6 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 
 export default function BarCode(props){
-    // const bookid = ["12675495", "12346983", "59756813", "68796423", "47595647"];
     const {bookid} = props;
     const getUrl =(id)=>{
       // 将id添0补齐为8位数

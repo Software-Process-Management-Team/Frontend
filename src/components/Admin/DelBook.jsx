@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-
 import FuncHeader from '../FuncHeader';
 import CommonInput from './CommonInput';
 
 import axios from 'axios';
 
+const URL = 'http://124.70.53.71:8080';
 export default function DelBook() {
   const [msg, setMsg] = React.useState({
     open: false,
@@ -21,7 +21,7 @@ export default function DelBook() {
   const getBookid = (id) => {
 
     axios.defaults.withCredentials = true
-    axios.get("http://localhost:8080/deletebook", {
+    axios.get(URL+"/deletebook", {
       params: {
         book_id: id
       }
@@ -29,7 +29,7 @@ export default function DelBook() {
       .then(res => {
         setMsg({
           open: true,
-          message: res.data
+          message: res.data.result
         });
       })
   }

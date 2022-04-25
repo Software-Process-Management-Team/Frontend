@@ -1,7 +1,6 @@
 //内容页布局
 import * as React from 'react';
 import SearchBook from './Search/SearchBook';
-import MyReser from './MyReser';
 import MyBorrowed from './MyBorrowed';
 import AddBook from './Admin/AddBook';
 import DelBook from './Admin/DelBook';
@@ -11,9 +10,6 @@ import Lend from './Admin/Lend';
 export default function Content(props){
     if(props.func === 'Search'){
         return <SearchBook />
-    }
-    else if(props.func === "Reservations"){
-        return <MyReser />
     }
     else if(props.func === "Borrowed"){
         return <MyBorrowed />
