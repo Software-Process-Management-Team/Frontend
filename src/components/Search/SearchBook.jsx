@@ -5,17 +5,22 @@ import FuncHeader from '../FuncHeader';
 import SearchBox from './SearchBox';
 import SearchList from './SearchList';
 import axios from 'axios';
-const URL = 'http://124.70.53.71:8080';
+const URL = 'http://localhost:8080';
 export default function SearchBook() {
     const [searchKey, setSearchKey] = React.useState("");
     const [preInfo, setPreInfo] = React.useState([]);
+    React.useEffect(()=>{
+        const fetchData = async ()=>{
+            const res = await axios.get(URL+"/searchbook");
+            setPreInfo(res.data)
+        }
+        fetchData();
+    }, []);
     const getSearchKey = (sk) => {
         setSearchKey(sk);
         axios.defaults.withCredentials=true;
-        // console.log(URL+"/searchbook");
         axios.get(URL+"/searchbook", {params:{info: sk}})
             .then(res => {
-                console.log(res);
                 if(res.data !== 'failed'){
                     setPreInfo(res.data);
                 }

@@ -19,41 +19,6 @@ import Snackbar from '@mui/material/Snackbar';
 
 import axios from 'axios';
 
-const books = [
-  {
-    bookID: "00000001",
-    bookName: "aaaaaa",
-    bookAuthor: "wjy",
-    location: "4F",
-    isbnNumber: "01234567891023",
-    available: true,
-  },
-  {
-    bookID: "00000002",
-    bookName: "aaaaaa",
-    bookAuthor: "wjy",
-    location: "4F",
-    isbnNumber: "01234567891023",
-    available: true,
-  },
-  {
-    bookID: "00000003",
-    bookName: "aaaaaa",
-    bookAuthor: "wjy",
-    location: "4F",
-    isbnNumber: "01234567891023",
-    available: false,
-  },
-  {
-    bookID: "00000004",
-    bookName: "aaaaaa",
-    bookAuthor: "wjy",
-    location: "4F",
-    isbnNumber: "01234567891023",
-    available: false,
-  },
-];
-
 function dataFilter(booklist){
   const book = {
     isbnNumber: booklist[0].isbnNumber,
@@ -64,17 +29,24 @@ function dataFilter(booklist){
   let list = new Array();
   booklist.map((item)=>{
     list.push({
-      bookID: item.bookID,
-      available: item.available
+      bookID: item.bookID.toString().padStart(8, '0'),
+      available: (item.available && isReservable(item.reserveTime))
     })
   })
   return [book, list];
 }
-const URL = 'http://124.70.53.71:8080';
+function isReservable(time){
+  const cur_time = new Date().getTime();
+  const timeM12 = new Date(cur_time-12*60*60*1000);
+  const reserTime = new Date(time.substring(0, 19).replace("T", " "));
+  if(reserTime<timeM12){
+    return true;
+  }
+  return false;
+}
+const URL = 'http://localhost:8080';
 export default function SearchList(props) {
-  
   const {preInfo} = props;
-  console.log(preInfo);
   const [detailOpen, setDetailOpen] = React.useState(false);
   const [detailBook, setDetailBook] = React.useState(null);
   const [detailBookList, setDetailBookList] = React.useState([]);
@@ -87,38 +59,34 @@ export default function SearchList(props) {
     setMsg({...msg, open:false})
   }
   const seeDetails =(e)=>{
-    
     const bid = e.currentTarget.id;
-    axios.get(URL+"/getbook", {param:{isbn_code:bid}})
+    axios.get(URL+"/getbook", {params:{isbn_number:bid}})
     .then(res =>{
+      const details = dataFilter(res.data);
+      setDetailBook(details[0]);
+      setDetailBookList(details[1]);
       setDetailOpen(true);
-      console.log(res);
     })
-    // const details = dataFilter(books);
-    // setDetailBook(details[0]);
-    // setDetailBookList(details[1]);
-    // setDetailOpen(true);
   }
   const handleDetailClose = () => {
     setDetailOpen(false);
   };
 
   const getReserveData = (reserData)=>{
-    console.log(reserData);
-    // axios.post("http://loacalhost:8080/reservebook", reserData)
-    // .then(res=>{
-    //   setMsg({
-    //     open: true,
-    //     message: res.data
-    //   })
-    //   setDetailOpen(false);
-    // })
-    setMsg({
-      open: true,
-      message: "res.data"
-    });
-    setDetailOpen(false);
+    const {user_id, book_id} = reserData;
+    axios.post(`http://localhost:8080/reservebook?user_id=${user_id}&book_id=${book_id}`)
+    .then(res=>{
+      
+      if(res.data.result === 'success'){
+        setMsg({
+          open: true,
+          message: res.data.result
+        })
+        setDetailOpen(false);
+      }
+    })
   }
+
 
   return (
     <React.Fragment>

@@ -8,7 +8,7 @@ import Snackbar from '@mui/material/Snackbar';
 import axios from 'axios';
 import { onLogin } from '../../utils/cookie';
 
-const URL = 'http://124.70.53.71:8080/admin';
+const URL = 'http://localhost:8080/admin';
 export default function AdminLogin() {
     const [msg, setMsg] = React.useState({
         open:false,

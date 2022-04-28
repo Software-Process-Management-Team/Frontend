@@ -20,7 +20,6 @@ export default function AddInput(props){
             const book = {
                 book_name: res.data.data.name,
                 book_author: res.data.data.author,
-                isbn_code: "0",
                 isbn_number:isbn,
                 num: num
             }

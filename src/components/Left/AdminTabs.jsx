@@ -22,7 +22,7 @@ export default function AdminTabs(props) {
         <Tab label="Add Books" />
         <Tab label="Delete Books" />
         <Tab label="Returns" />
-        <Tab label="Lends" />
+        <Tab label="Check Out" />
       </Tabs>
     </Box>
   );

@@ -9,7 +9,7 @@ import axios from 'axios';
 import '../../utils/cookie'
 import { onLogin } from '../../utils/cookie';
 
-const URL = 'http://124.70.53.71:8080';
+const URL = 'http://localhost:8080';
 export default function Signin() {
     const [msg, setMsg] = React.useState({
         open:false,

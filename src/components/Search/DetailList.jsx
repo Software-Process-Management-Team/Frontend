@@ -33,7 +33,10 @@ props.list = [
 
 export default function DetailList(props){
     const {bookName, bookAuthor, isbnNumber, location} = props.book;
-    const {list} = props;
+    let {list} = props;
+    list.sort((a,b)=>{
+      return b.available - a.available;
+    })
 
     const reserveBook = (e)=>{
         const data = {
