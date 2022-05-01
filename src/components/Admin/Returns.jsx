@@ -7,8 +7,8 @@ export default function Returns(){
     const [bookid, setBookid] = React.useState('');
     const [open, setOpen] = React.useState(false);
 
-    const getBookid = (id)=>{
-        console.log(id);
+    const getBookid = (bid)=>{
+        console.log(bid);
         
     }
 

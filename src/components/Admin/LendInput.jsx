@@ -1,11 +1,20 @@
 import * as React from 'react';
 import { Box, TextField, Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
+import Snackbar from '@mui/material/Snackbar';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import axios from 'axios';
 
 const URL = 'http://localhost:8080';
 export default function LendInput(){
+    const [msg, setMsg] = React.useState({
+        open:false,
+        message:''
+    });
+    const handleMsgClose = ()=>{
+      setMsg({...msg, open:false})
+    }
+
     const handleSubmit =(e)=>{
         e.preventDefault();
         const fd = new FormData(e.currentTarget);
@@ -13,10 +22,12 @@ export default function LendInput(){
             user_id: fd.get("user_id"),
             book_id: fd.get("book_id")
         }
-        // console.log(data);
-        axios.post(URL+'/lendout', data)
+        axios.post(`${URL}/lendout?user_id=${data.user_id}&book_id=${data.book_id}`)
         .then(res=>{
-            console.log(res);
+            setMsg({
+                open: true,
+                message: res.data.errorMsg || res.data.result
+            })
         }).catch(err=>{
             console.log(err);
         })
@@ -46,6 +57,12 @@ export default function LendInput(){
                   Check Out
                 </Button>
             </Stack>
+            <Snackbar
+            anchorOrigin={{ vertical:'top', horizontal:'center' }}
+            open={msg.open}
+            onClose={handleMsgClose}
+            message={msg.message}
+            />
         </Box>
     )
 }

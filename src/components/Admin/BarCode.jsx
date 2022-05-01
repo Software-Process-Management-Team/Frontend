@@ -8,7 +8,7 @@ export default function BarCode(props){
     const getUrl =(id)=>{
       // 将id添0补齐为8位数
         const ID = id.toString().padStart(8, '0');
-        return `http://barcode.tec-it.com/barcode.ashx?data=${ID}&code=Code11`;
+        return `http://barcode.tec-it.com/barcode.ashx?data=${ID}&code=Code128`;
     }
 
     return (
@@ -16,9 +16,9 @@ export default function BarCode(props){
         display:"flex", 
         width:"100%",
         justifyContent:"center"}}>
-      <ImageList  cols={4} rowHeight={100} gap={30}>
+      <ImageList  cols={4}>
         {bookid.map((item) => (
-          <ImageListItem key={item}>
+          <ImageListItem key={item} sx={{margin:"0 10px"}}>
             <img
               src={getUrl(item)}
               loading="lazy"

@@ -20,6 +20,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function Welcome() {
+    console.log(document.cookie);
     return (
         <ThemeProvider theme={theme}>
             <Grid container component="main" sx={{ height: '100vh' }}>

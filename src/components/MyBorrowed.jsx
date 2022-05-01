@@ -11,7 +11,7 @@ export default function MyBorrowed(){
   useEffect(()=>{
     const fetchData = async ()=>{
       const res = await axios.get(URL+'/myborrow', {params:{user_id: loginUser()}});
-      setBorrowed(res.data.bookList)
+      setBorrowed(res.data.borrowList)
     }
     fetchData()
   }, [])

@@ -55,18 +55,6 @@ export default function AddBook() {
         
       }
     })
-
-    // axios.post(URL+'/addbook', bookInfo)
-    //   .then((res) => {
-    //     console.log(res);
-    //     //这些是写在post.then里的，setBookid参数是post返回的数据
-    //     setBookid(res.data.list);
-    //     setDiaOpen(false);
-    //     setBarcodeOpen(true);
-    //   })
-
-    
-
   }
 
   return (
