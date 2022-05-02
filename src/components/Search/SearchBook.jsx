@@ -8,9 +8,11 @@ import SearchList from './SearchList';
 import axios from 'axios';
 const URL = 'http://localhost:8080';
 export default function SearchBook() {
+    const navigate = useNavigate();
+    
     const [searchKey, setSearchKey] = React.useState("");
     const [preInfo, setPreInfo] = React.useState([]);
-    const navigate = useNavigate();
+    
     React.useEffect(()=>{
         const fetchData = async ()=>{
             const res = await axios.get(URL+"/searchbook")

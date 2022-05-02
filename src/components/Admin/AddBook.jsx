@@ -1,7 +1,6 @@
 import * as React from 'react';
 import FuncHeader from '../FuncHeader';
 import { Box } from '@mui/material';
-import AddInput from './AddInput';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -16,6 +15,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AttributionIcon from '@mui/icons-material/Attribution';
 
 import BarCode from './BarCode';
+import AddInput from './AddInput';
 
 import axios from 'axios';
 const URL = 'http://localhost:8080';

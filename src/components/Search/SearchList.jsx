@@ -84,6 +84,12 @@ export default function SearchList(props) {
         })
         setDetailOpen(false);
       }
+      else{
+        setMsg({
+          open: true,
+          message: res.data.errorMsg
+        })
+      }
     })
   }
 

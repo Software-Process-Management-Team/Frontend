@@ -105,7 +105,8 @@ export default function User(props) {
       logOut();
       navigate('/welcome'); //转到登录页面
     }).catch(err=>{
-      alert("Plz Login!");
+      // alert("Plz Login!");
+      logOut();
       navigate('/welcome')
     })
   }
