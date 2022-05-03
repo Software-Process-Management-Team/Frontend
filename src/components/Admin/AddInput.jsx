@@ -21,6 +21,7 @@ export default function AddInput(props){
                 book_name: res.data.data.name,
                 book_author: res.data.data.author,
                 isbn_number:isbn,
+                cover_url: res.data.data.photoUrl,
                 num: num
             }
             props.getBookInfo(book);

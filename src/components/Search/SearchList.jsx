@@ -44,7 +44,7 @@ function isReservable(time){
   }
   return false;
 }
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 export default function SearchList(props) {
   const {preInfo} = props;
   const [detailOpen, setDetailOpen] = React.useState(false);
@@ -74,7 +74,7 @@ export default function SearchList(props) {
 
   const getReserveData = (reserData)=>{
     const {user_id, book_id} = reserData;
-    axios.post(`http://localhost:8080/reservebook?user_id=${user_id}&book_id=${book_id}`)
+    axios.post(`${URL}/reservebook?user_id=${user_id}&book_id=${book_id}`)
     .then(res=>{
       
       if(res.data.result === 'success'){

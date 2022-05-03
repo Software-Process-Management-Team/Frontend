@@ -7,7 +7,7 @@ import CommonInput from './CommonInput';
 
 import axios from 'axios';
 
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 export default function DelBook() {
   const [msg, setMsg] = React.useState({
     open: false,
@@ -45,7 +45,7 @@ export default function DelBook() {
         open={msg.open}
         onClose={handleClose}
       >
-        <Alert severity="success" sx={{ width: '100%' }}>
+        <Alert sx={{ width: '100%' }}>
           {msg.message}
         </Alert>
       </Snackbar>

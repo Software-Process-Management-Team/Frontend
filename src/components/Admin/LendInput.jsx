@@ -5,7 +5,7 @@ import Snackbar from '@mui/material/Snackbar';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import axios from 'axios';
 
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 export default function LendInput(){
     const [msg, setMsg] = React.useState({
         open:false,

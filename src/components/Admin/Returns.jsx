@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import CommonInput from './CommonInput';
 import axios from 'axios';
 
-const URL = "http://localhost:8080/returnBook?bookId=";
+const URL = "http://124.70.53.71:8080/returnBook?bookId=";
 export default function Returns(){
     const [msg, setMsg] = React.useState({
         open:false,

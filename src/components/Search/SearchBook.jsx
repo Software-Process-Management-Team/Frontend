@@ -6,10 +6,10 @@ import FuncHeader from '../FuncHeader';
 import SearchBox from './SearchBox';
 import SearchList from './SearchList';
 import axios from 'axios';
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 export default function SearchBook() {
     const navigate = useNavigate();
-    
+
     const [searchKey, setSearchKey] = React.useState("");
     const [preInfo, setPreInfo] = React.useState([]);
     

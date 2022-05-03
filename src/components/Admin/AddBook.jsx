@@ -10,6 +10,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import ImageListItem from '@mui/material/ImageListItem';
 import InfoIcon from '@mui/icons-material/Info';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AttributionIcon from '@mui/icons-material/Attribution';
@@ -18,7 +19,7 @@ import BarCode from './BarCode';
 import AddInput from './AddInput';
 
 import axios from 'axios';
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 
 export default function AddBook() {
   //bookInfo是子组件AddInput传上来的需要添加的书的信息
@@ -98,8 +99,10 @@ export default function AddBook() {
 
 //确认对话框中的图书信息列表
 function InfoList(props) {
-  const { isbn_number, book_name, book_author } = props.bookInfo;
+  const { isbn_number, book_name, book_author, cover_url } = props.bookInfo;
   return (
+    <React.Fragment >
+      {/* <img src={cover_url} loading="eager"/> */}
     <List dense>
       <ListItem>
         <ListItemIcon>
@@ -136,5 +139,6 @@ function InfoList(props) {
         />
       </ListItem>
     </List>
+    </React.Fragment>
   )
 }

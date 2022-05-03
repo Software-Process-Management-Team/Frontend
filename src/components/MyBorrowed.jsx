@@ -5,7 +5,7 @@ import BorrowedList from './BorrowedList';
 import { useEffect, useState } from 'react';
 import {loginUser} from '../utils/cookie'
 import axios from 'axios';
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 export default function MyBorrowed(){
   const [borrowed, setBorrowed] = useState([])
   useEffect(()=>{

@@ -6,7 +6,7 @@ import Home from './pages/Home';
 
 function App() {
   return (
-    <Router>
+    <Router >
       <Routes>
         {/* 首次进入页面时重定向到/welcome */}
         <Route path='*' element={<Navigate to="/welcome"/>} />

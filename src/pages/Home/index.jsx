@@ -30,28 +30,6 @@ export default function Home(props) {
     alert('Plz Login first!');
     navigate("/welcome");
   }
-  // const [finesDia, setFinesDia] = useState({
-  //   open: false,
-  //   fines: 0
-  // });
-  // useEffect(()=>{  //初始化的时候获取该用户罚款金额
-  //   const fetchFines = async ()=>{
-  //     const res = await axios.get(URL+"/preReturnBook?userId="+loginUser())
-  //     if(res.data !== 0){  //如果有罚款的话，弹出窗口
-  //       setFinesDia({
-  //         open: true,
-  //         fines: res.data
-  //       })
-  //     }
-  //   }
-  //   fetchFines();
-  // },[])
-  // const handleDiaClose = ()=>{
-  //   setFinesDia({...finesDia, open: false})
-  // }
-  // const gotoPay = ()=>{
-  //   window.location.href=`${URL}/pay?userId=${loginUser()}`;
-  // }
     
     //当前选择的功能
     const [func, setFunc] = useState(props.privilege === 'user'? "Search": "Add");

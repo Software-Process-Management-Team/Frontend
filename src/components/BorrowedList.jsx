@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Snackbar from '@mui/material/Snackbar';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -6,13 +7,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import PaymentIcon from '@mui/icons-material/Payment';
 import axios from 'axios';
 import {loginUser} from "../utils/cookie"
-const URL = 'http://localhost:8080';
+const URL = 'http://124.70.53.71:8080';
 
 function getRowColor(remainingDays){
   if(remainingDays < 0){
@@ -28,7 +28,16 @@ function getRemainingDays(date){
   const now = new Date();
   return 10-Math.floor((now-borrowDate)/1000/60/60/24);
 }
+
 export default function BorrowedList(props){
+  const [msg, setMsg] = React.useState({
+    open:false,
+    message:''
+  });
+  const handleMsgClose = ()=>{
+    setMsg({...msg, open:false})
+  }
+
   const borrowed = props.borrowed.sort((a, b)=>{
     const da = new Date(a.borrowDate);
     const db = new Date(b.borrowDate);
@@ -43,15 +52,25 @@ export default function BorrowedList(props){
     }
     axios.post(URL+"/renew", data)
     .then(res=>{
-      console.log(res);
+      setMsg({
+          open: true,
+          message: res.data.errorMsg || res.data.result
+        })
     })
   }
   const pay = (e)=>{
-
+    const bid = e.currentTarget.getAttribute("data-id").toString().padStart(8, '0');
+    window.location.href=URL+"/pay?bookId="+bid;
   }
 
     return (
     <React.Fragment>
+      <Snackbar
+        anchorOrigin={{ vertical:'top', horizontal:'center' }}
+        open={msg.open}
+        onClose={handleMsgClose}
+        message={msg.message}
+      />
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650, maxHeight: 600 }} >
         <TableHead>

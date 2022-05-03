@@ -20,7 +20,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { Snackbar } from '@mui/material';
 import axios from 'axios';
 import {loginUser ,logOut} from "../utils/cookie";
-const URL = 'http://localhost:8080/';
+const URL = 'http://124.70.53.71:8080/';
 export default function User(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
