@@ -80,7 +80,7 @@ export default function SearchList(props) {
       if(res.data.result === 'success'){
         setMsg({
           open: true,
-          message: res.data.result
+          message: "You have reserved books successfully! You can only reserve it for 4 hours."
         })
         setDetailOpen(false);
       }

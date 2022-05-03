@@ -6,21 +6,14 @@ import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Button from '@mui/material/Button';
-
 import DrawerLeft from '../../components/Left/DrawerLeft';
 import LeftTabs from '../../components/Left/LeftTabs';
 import Header from '../../components/Header';
 import Content from '../../components/Content';
 
 import '../../components/style.css'
-import axios from 'axios';
 import {loginUser} from '../../utils/cookie'
-const URL = 'http://localhost:8080';
+
 //props 传入用户权限
 export default function Home(props) {
   //路由跳转对象
@@ -28,7 +21,7 @@ export default function Home(props) {
 
   if(!loginUser()){
     alert('Plz Login first!');
-    navigate("/welcome");
+    window.location.href= "http://169.254.70.132:3000/";
   }
     
     //当前选择的功能
@@ -41,19 +34,6 @@ export default function Home(props) {
 
   return (
     <React.Fragment>
-      {/* <Dialog open={finesDia.open} onClose={handleDiaClose}>
-        <Box sx={{ width: "500px" }}>
-          <DialogTitle>You Have Unpaid Fines</DialogTitle>
-          <DialogContent>
-            You must to pay {finesDia.fines}￥ 
-          </DialogContent>
-          <DialogActions>
-            <Button variant="contained"
-              onClick={gotoPay}
-            >Pay</Button>
-          </DialogActions>
-        </Box>
-      </Dialog> */}
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar 
@@ -66,7 +46,7 @@ export default function Home(props) {
         />
       </AppBar>
       <DrawerLeft >
-          <LeftTabs privilege={props.privilege} getFunc={getFunc}/>
+          <LeftTabs privilege={props.privilege} getFunc={getFunc} uid={loginUser()}/>
       </DrawerLeft>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />

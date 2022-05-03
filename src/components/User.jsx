@@ -74,7 +74,7 @@ export default function User(props) {
     }
     else{   //从cookie中得到id，再发送改密请求
       axios.defaults.withCredentials=true;
-      axios.post(URL+'/updatePassword', data, {
+      axios.post(URL+'updatePassword', data, {
         headers:{
           "content-type": "application/x-www-form-urlencoded"
         }
