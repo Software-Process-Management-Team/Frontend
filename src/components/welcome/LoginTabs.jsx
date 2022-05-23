@@ -25,8 +25,8 @@ export default function LoginTabs() {
   return (
       <Box sx={{ width: '100%', marginTop:'10px' }} className='center'>
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="User" />
-          <Tab label="Admin" />
+          <Tab label="Member" />
+          <Tab label="Librarian" />
         </Tabs>
         <Form value={value} />
       </Box>

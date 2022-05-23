@@ -14,8 +14,11 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import DetailList from './DetailList';
 import Snackbar from '@mui/material/Snackbar';
+
+import {Consumer} from "../../utils/pvContext"
+import DetailList from './DetailList';
+import UpdateList from './UpdateList';
 
 import axios from 'axios';
 
@@ -139,12 +142,18 @@ export default function SearchList(props) {
           <Box sx={{width:"100%"}}>
             <DialogTitle>Details</DialogTitle>
             <DialogContent>
+              <Consumer>
+                {context=>{
+                  context==='member'?
               <DetailList book={detailBook} list={detailBookList} getReserveData={getReserveData}/>
+                  :<UpdateList book={detailBook} list={detailBookList}/>
+                }}
+              </Consumer>
             </DialogContent>
             <DialogActions>
                 <Button 
                   onClick={handleDetailClose}
-                >CANCEL</Button>
+                >BACK</Button>
             </DialogActions>
           </Box>
         </Dialog>

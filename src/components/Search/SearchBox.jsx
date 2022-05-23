@@ -26,7 +26,7 @@ export default function SearchBox(props){
       >
         <TextField
           id="standard-search"
-          label="Search Field"
+          label="ISBN or Bookname or Author ..."
           name='key'
           type="search"
           variant="standard"

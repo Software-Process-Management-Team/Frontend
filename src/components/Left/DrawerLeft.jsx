@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Divider from '@mui/material/Divider';
 
-const drawerWidth = 300;
+const drawerWidth = 310;
 
 //props是侧边导航栏组件
 export default function DrawerLeft(props) {

@@ -5,7 +5,7 @@ import Tab from '@mui/material/Tab';
 
 export default function AdminTabs(props) {
   const [value, setValue] = React.useState(0);
-  const funcArr = ["Add", "Delete", "Return", "lend", "Regis"];
+  const funcArr = ['DashBoard', "Add", "Delete", "Update", "Return", "lend", "Regis"];
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -13,14 +13,16 @@ export default function AdminTabs(props) {
   };
 
   return (
-    <Box sx={{ width: '100%', mt:"40%", bgcolor: 'background.paper' }}>
+    <Box sx={{ width: '100%', mt:"30%", bgcolor: 'background.paper' }}>
       <Tabs 
       value={value} 
       onChange={handleChange} 
       orientation="vertical"
       >
+        <Tab label="DashBoard" />
         <Tab label="Add Books" />
         <Tab label="Delete Books" />
+        <Tab label='All Books' />
         <Tab label="Returns" />
         <Tab label="Check Out" />
         <Tab label="Registration" />

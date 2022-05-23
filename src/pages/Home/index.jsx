@@ -19,13 +19,13 @@ export default function Home(props) {
   //路由跳转对象
   const navigate = useNavigate();
 
-  if(!loginUser()){
-    alert('Plz Login first!');
-    window.location.href= "http://169.254.70.132:3000/";
-  }
+  // if(!loginUser()){
+  //   alert('Plz Login first!');
+  //   window.location.href= "http://169.254.70.132:3000/";
+  // }
     
     //当前选择的功能
-    const [func, setFunc] = useState(props.privilege === 'user'? "Search": "Add");
+    const [func, setFunc] = useState(props.privilege === 'user'? "Search": "DashBoard");
 
     //获取子组件当前选择的功能
     const getFunc = (newFunc) =>{
@@ -50,7 +50,7 @@ export default function Home(props) {
       </DrawerLeft>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <Content func={func}/>
+        <Content func={func} privilege={props.privilege}/>
       </Box>
     </Box>
     </React.Fragment>

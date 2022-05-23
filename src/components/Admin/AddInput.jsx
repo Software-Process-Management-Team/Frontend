@@ -28,34 +28,6 @@ export default function AddInput(props){
         }).catch(err=>{
             props.getBookInfo("error")
         })
-
-        // google的ISBN api 可以直接调用，但需要挂梯子， 且返回数据格式不同，需要更改
-        // axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
-        // .then(res=>{
-        //     console.log(res);
-
-        //     // const book = {
-        //     //     book_name: "Crime and Punishment",
-        //     //     book_author: "tstyfsk",
-        //     //     isbn_code: null,
-        //     //     isbn_number:"9787020139279",
-        //     //     num: num
-        //     // }
-        //     // props.getBookInfo(book);
-
-        // }).catch(err=>{
-        //     props.getBookInfo("error")
-        // })
-
-        // 测试数据, isbn_code 默认接收null
-        // const book = {
-        //     book_name: "Crime and Punishment",
-        //     book_author: "tstyfsk",
-        //     isbn_code: null,
-        //     isbn_number:9787020139279,
-        //     num: num
-        // }
-        // props.getBookInfo(book);
     }
 
     return (

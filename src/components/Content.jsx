@@ -8,10 +8,18 @@ import DelBook from './Admin/DelBook';
 import Returns from './Admin/Returns';
 import Lend from './Admin/Lend';
 import Regis from './Admin/Regis';
+import BorrowedHisHeader from './History/BorrowedHisHeader';
+import DashBoard from './Admin/DashBoard'
+
+import {Provider} from '../utils/pvContext'
 
 export default function Content(props){
     if(props.func === 'Search'){
-        return <SearchBook />
+        return (
+            <Provider value='member'>
+                <SearchBook />
+            </Provider>
+        )
     }
     else if(props.func === "UserBorrow"){
         return <UserBorrow />
@@ -31,7 +39,20 @@ export default function Content(props){
     else if(props.func === "lend"){
         return <Lend />
     }
-    else{
+    else if(props.func === "Regis"){
         return <Regis />
+    }
+    else if(props.func === "History"){
+        return <BorrowedHisHeader />
+    }
+    else if(props.func === 'Update'){
+        return (
+            <Provider value='librarian'>
+                <SearchBook />
+            </Provider>
+        )
+    }
+    else if(props.func === "DashBoard"){
+        return <DashBoard />
     }
 }
