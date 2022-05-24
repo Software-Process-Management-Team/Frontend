@@ -24,7 +24,8 @@ const URL = 'http://124.70.53.71:8080/';
 export default function User(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [Diaopen, setDiaOpen] = React.useState(false);
+  const [psdDiaopen, setPsdDiaOpen] = React.useState(false);
+  const [emailDiaopen, setEmailDiaopen] = React.useState(false)
   const [msg, setMsg] = React.useState({  //提示消息的状态
     open:false,
     message:''
@@ -40,19 +41,16 @@ export default function User(props) {
   };
 
   //修改密码框的打开收起
-  const handleDiaOpen = (e) =>{
-    setDiaOpen(true);
-  }
   const handleDiaClose = () => {
-    setDiaOpen(false);
+    setPsdDiaOpen(false)
+    setEmailDiaopen(false)
   };
   //提示消息收起
   const handleClose = ()=>{
     setMsg({...msg, open:false})
   }
-
   
-  const handleSubmit = (e)=>{
+  const resetPsw = (e)=>{
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const data={
@@ -93,6 +91,18 @@ export default function User(props) {
         }
       }).catch(err =>{
         console.log(err);
+      })
+    }
+  }
+  const resetEmail = (e)=>{
+    e.preventDefault();
+    const email_reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
+    const fd = new FormData(e.currentTarget)
+    const email = fd.get('email')
+    if(!email_reg.test(email)){
+      return setMsg({
+        open: true,
+        message: 'Incorrect Email Format!'
       })
     }
   }
@@ -162,11 +172,17 @@ export default function User(props) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleDiaOpen}>
+        <MenuItem onClick={()=>setPsdDiaOpen(true)}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Reset Password
+        </MenuItem>
+        <MenuItem onClick={()=>setEmailDiaopen(true)}>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Reset Email
         </MenuItem>
         <MenuItem onClick={logout}>
           <ListItemIcon>
@@ -175,8 +191,8 @@ export default function User(props) {
           Log out
         </MenuItem>
       </Menu>
-
-      <Dialog open={Diaopen} onClose={handleDiaClose}>
+      
+      <Dialog open={psdDiaopen} onClose={handleDiaClose}>
         {/* 提示消息框 */}
       <Snackbar
             anchorOrigin={{ vertical:'top', horizontal:'center' }}
@@ -185,10 +201,9 @@ export default function User(props) {
             message={msg.message}
         />
         {/* 表单框 */}
-        <Box component="form" onSubmit={handleSubmit} >
+        <Box component="form" onSubmit={resetPsw} >
         <DialogTitle>Reset Password</DialogTitle>
         <DialogContent>
-          
           <TextField
             margin="dense"
             name="pwd"
@@ -205,7 +220,36 @@ export default function User(props) {
             fullWidth
             variant="standard"
           />
-          
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDiaClose}>Cancel</Button>
+          <Button variant="contained" type='submit'>Submit</Button>
+        </DialogActions>
+        </Box>
+      </Dialog>
+      <Dialog 
+        open={emailDiaopen} 
+        onClose={handleDiaClose}
+        fullWidth
+        maxWidth='xs'
+        >
+          <Snackbar
+            anchorOrigin={{ vertical:'top', horizontal:'center' }}
+            open={msg.open}
+            onClose={handleClose}
+            message={msg.message}
+        />
+        {/* 表单框 */}
+        <Box component="form" onSubmit={resetEmail} >
+        <DialogTitle>Reset Email</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            name="email"
+            label="Type in new Email address"
+            fullWidth
+            variant="standard"
+          />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDiaClose}>Cancel</Button>

@@ -13,7 +13,7 @@ export default function UserTabs(props) {
   };
 
   return (
-    <Box sx={{ width: '100%', mt:"40%", bgcolor: 'background.paper' }}>
+    <Box sx={{ width: '100%', mt:"30%", bgcolor: 'background.paper' }}>
       <Tabs 
       value={value} 
       onChange={handleChange} 

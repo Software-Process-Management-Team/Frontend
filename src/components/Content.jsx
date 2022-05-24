@@ -12,6 +12,7 @@ import BorrowedHisHeader from './History/BorrowedHisHeader';
 import DashBoard from './Admin/DashBoard'
 
 import {Provider} from '../utils/pvContext'
+import axios from 'axios';
 
 export default function Content(props){
     if(props.func === 'Search'){

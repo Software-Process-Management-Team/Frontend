@@ -38,7 +38,7 @@ export default function SearchUserDia(props){
     }
 
     const handleClick = ()=>{
-        handleDiaClose('user')
+        handleDiaClose()
     }
     const handleSubmit = (e)=>{
         e.preventDefault()

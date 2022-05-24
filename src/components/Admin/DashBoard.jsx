@@ -29,13 +29,9 @@ export default function DashBoard() {
         setLnd('damage')
         setLndDiaopen(true)
     }
-    const handleDiaClose = (dia) =>{
-        if(dia==='user'){
-            return setUserDiaopen(false)
-        }
-        if(dia === 'lnd'){
-            return setLndDiaopen(false);
-        }
+    const handleDiaClose = () =>{
+        setUserDiaopen(false)
+        setLndDiaopen(false);
     }
   return (
     <ThemeProvider theme={theme}>

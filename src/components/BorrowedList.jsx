@@ -79,7 +79,6 @@ export default function BorrowedList(props){
             <TableCell align="left">BookName</TableCell>
             <TableCell align="left">Remaining days</TableCell>
             <TableCell align="center">Renew</TableCell>
-            <TableCell align="center">Pay</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -95,11 +94,6 @@ export default function BorrowedList(props){
               <TableCell align="center" >
                 <IconButton color="success" data-id={row.bookID} onClick={renew}>
                   <AutorenewIcon />
-                </IconButton>
-              </TableCell>
-              <TableCell align="center">
-                <IconButton color="success" data-id={row.bookID} onClick={pay} disabled={getRemainingDays(row.borrowDate)>=0}>
-                  <PaymentIcon />
                 </IconButton>
               </TableCell>
             </TableRow>
