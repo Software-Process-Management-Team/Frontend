@@ -24,10 +24,10 @@ export default function Home(props) {
   const navigate = useNavigate();
   
 
-  // if(!loginUser()){
-  //   alert('Plz Login first!');
-  //   window.location.href= "http://169.254.70.132:3000/";
-  // }
+  if(!loginUser()){
+    alert('Plz Login first!');
+    window.location.href= "http://169.254.70.132:3000/";
+  }
   const [payAlert, setPayAlert] = useState({
       open: true,
       payment: 11

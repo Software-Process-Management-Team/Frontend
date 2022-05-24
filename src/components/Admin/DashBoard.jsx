@@ -58,7 +58,7 @@ export default function DashBoard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color='white' disabled sx={{mt:"-8px"}}>Click allbooks for More info</Button>
+        <Button size="small" color='white' disabled sx={{mt:"-15px"}}>Click allbooks for More info</Button>
       </CardActions>
     </Card>
     <Card className='card' sx={{backgroundColor: '#6FAFCB', color:'#fff'}}>
@@ -71,7 +71,7 @@ export default function DashBoard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color='white' disabled sx={{mt:"-8px"}}>Click allbooks for More info</Button>
+        <Button size="small" color='white' disabled sx={{mt:"-15px"}}>Click allbooks for More info</Button>
       </CardActions>
     </Card>
     <Card className='card' sx={{backgroundColor: '#A6DEEF', color:'#fff'}}>
@@ -84,7 +84,7 @@ export default function DashBoard() {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color='white' disabled sx={{mt:"-8px"}}>Click allbooks for More info</Button>
+        <Button size="small" color='white' disabled sx={{mt:"-15px"}}>Click allbooks for More info</Button>
       </CardActions>
     </Card>
     <Card className='card' sx={{backgroundColor: '#397A96', color:'#fff'}}>
