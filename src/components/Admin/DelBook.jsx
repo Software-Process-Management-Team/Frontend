@@ -2,6 +2,11 @@ import * as React from 'react';
 import { Box } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import FuncHeader from '../FuncHeader';
 import CommonInput from './CommonInput';
 
@@ -16,6 +21,10 @@ export default function DelBook() {
   const handleClose = () => {
     setMsg({ ...msg, open: false })
   }
+  const [reason, setReason] = React.useState('lost')
+  const handleChange = (event) => {
+    setReason(event.target.value);
+  };
 
   //得到子组件传来的需要删除的bookid，得到之后发送/deletebook请求
   const getBookid = (id) => {
@@ -23,7 +32,8 @@ export default function DelBook() {
     axios.defaults.withCredentials = true
     axios.get(URL+"/deletebook", {
       params: {
-        book_id: id
+        book_id: id,
+        reason: reason
       }
     })
       .then(res => {
@@ -38,6 +48,20 @@ export default function DelBook() {
     <React.Fragment >
       <Box sx={{ width: "100%" }}>
         <FuncHeader func="Delete Books" />
+        <Box sx={{'& .MuiTextField-root': {  width: '400px' },
+             ml:'250px', mt:'20px'}}
+        >
+        <FormControl>
+          <FormLabel>Reason</FormLabel>
+          <RadioGroup row
+            value={reason}
+            onChange={handleChange}
+          >
+            <FormControlLabel value="lost" control={<Radio />} label="Lost" />
+            <FormControlLabel value="damaged" control={<Radio />} label="Damaged" />
+          </RadioGroup>
+        </FormControl>
+        </Box>
         <CommonInput func="DELETE" getBookid={getBookid} />
       </Box>
       <Snackbar
