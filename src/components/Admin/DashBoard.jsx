@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import SearchUserDia from './SearchUserDia';
 import LndBookDia from './LndBookDia';
 import "../style.css"
+import axios from 'axios';
+const URL = 'http://124.70.53.71:8080';
 
 const theme = createTheme({
     palette:{
@@ -33,6 +35,26 @@ export default function DashBoard() {
         setUserDiaopen(false)
         setLndDiaopen(false);
     }
+
+    const [unpaid, setUnpaid] = React.useState(0);
+    const [paid, setPaid] = React.useState(0);
+    const [bookState, setBookState] = React.useState({
+      collecion: 0,
+      lentout: 0,
+      damaged: 0,
+      lost: 0
+    })
+    React.useEffect(()=>{
+      const fetchData = async ()=>{
+        let res = await axios.get(URL+'/getTotalFines')
+        setPaid(res.data)
+        res = await axios.get(URL+'/getTotalUnpaidFines')
+        setUnpaid(res.data)
+        res = await axios.get(URL+'/bookstates')
+        console.log(res);
+      }
+      fetchData()
+    }, [])
   return (
     <ThemeProvider theme={theme}>
     <Card className='card' sx={{backgroundColor: '#5A80A5', color:'#fff'}}>
@@ -119,7 +141,7 @@ export default function DashBoard() {
         Total Unpaid Fines
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {unpaid}
         </Typography>
       </CardContent>
       <CardActions>
@@ -132,7 +154,7 @@ export default function DashBoard() {
           Total Fine Collected
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {paid}
         </Typography>
       </CardContent>
       <CardActions>

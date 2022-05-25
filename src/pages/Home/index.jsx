@@ -26,39 +26,44 @@ export default function Home(props) {
 
   if(!loginUser()){
     alert('Plz Login first!');
-    window.location.href= "http://169.254.70.132:3000/";
+    window.location.href= "http://localhost:3000/";
   }
   const [payAlert, setPayAlert] = useState({
-      open: true,
-      payment: 11
+      open: false,
+      payment: 0
     })
     const [returnAlert, setReturnAlert] = useState({
-      open: true,
-      num: 4
+      open: false,
+      num: 0
     })
-  if(props.privilege === 'user'){
+
     /* 
     ***初始化数据：欠多少钱、借几本书（参考Myborrowed.jsx的fetchData）
     */
 
-    // useEffect(()=>{
-    //   const data = {
-    //     userID: loginUser(),
-    //   }
-    //   const fetchData = async ()=>{
-    //     const fineres = await axios.get(URL+'', {params:data})
-    //     if(fineres.data !== 0){
-    //       setAlert({
-    //         open: true,
-    //         payment: fineres.data
-    //       })
-    //     }
-    // const borrowres = await axios.get(URL+'/myborrow', {params:{user_id: loginUser()}})
-
-    //   }
-    //   fetchData()
-    // },[])
-  }
+    useEffect(()=>{
+      const data = {
+        userID: loginUser(),
+      }
+      const fetchData = async ()=>{
+        let res = await axios.get(URL+'/getFineByUserId?userId='+loginUser())
+        if(res.data !== 0){
+          setPayAlert({
+            open: true,
+            payment: res.data
+          })
+        }
+        res = await axios.get(URL+'/mycurrentborrow?user_id='+loginUser())
+        if(res.data.borrowList.length){
+          setReturnAlert({
+            open: true,
+            num: res.data.borrowList.length
+          })
+        }
+      }
+      if(props.privilege === 'user')
+        fetchData()
+    },[])
   
     
     //当前选择的功能

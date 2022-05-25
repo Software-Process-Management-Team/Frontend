@@ -21,11 +21,11 @@ export default function LndBookDia(props){
     const [info, setInfo] = React.useState([]);
     React.useEffect(()=>{
       const requrl = URL+(lnd==='lost'?'losted':'damaged')
-        const fetchData = async ()=>{
-            const res = await axios.get(requrl)
-            setInfo(res.data)
-        }
-        fetchData()
+        // const fetchData = async ()=>{
+        //     const res = await axios.get(requrl)
+        //     setInfo(res.data)
+        // }
+        // fetchData()
     }, [])
 
     const handleClick = ()=>{

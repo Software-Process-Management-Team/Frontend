@@ -106,8 +106,8 @@ export default function SearchList(props) {
             <TableCell>ISBN</TableCell>
             <TableCell align="left">BookName</TableCell>
             <TableCell align="left">Author</TableCell>
-            <TableCell align="left">Amount</TableCell>
-            <TableCell align="left">Location</TableCell>
+            <TableCell align="center">Available/Amount</TableCell>
+            <TableCell align="center">Location</TableCell>
             <TableCell align="center">Details</TableCell>
           </TableRow>
         </TableHead>
@@ -123,8 +123,8 @@ export default function SearchList(props) {
               </TableCell>
               <TableCell align="left">{row.bookName}</TableCell>
               <TableCell align="left">{row.bookAuthor}</TableCell>
-              <TableCell align="left">{row.amount}</TableCell>
-              <TableCell align="left">{row.location}</TableCell>
+              <TableCell align="center">{row.available}/{row.amount}</TableCell>
+              <TableCell align="center">{row.location}</TableCell>
               <TableCell align="center">
                 <IconButton color="success" id={row.isbnNumber} onClick={seeDetails}>
                   <PreviewIcon />

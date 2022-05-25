@@ -9,7 +9,7 @@ const URL = 'http://124.70.53.71:8080';
 export default function PayAlert(props) {
     const {payAlert} = props
     const pay = (e)=>{
-        window.location.href=URL+"/pay?userId="+loginUser()
+        window.location.href=URL+"/payAll?userId="+loginUser()
     }
     if(payAlert.open===true)
   return (
@@ -21,7 +21,7 @@ export default function PayAlert(props) {
           </Button>
         }
       >
-        You have to pay {payAlert.payment} 
+        You have to pay ￥{payAlert.payment} 
       </Alert>
     </Stack>
   );

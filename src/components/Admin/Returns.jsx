@@ -24,7 +24,7 @@ export default function Returns(){
         .then(res=>{
             setMsg({
                 open: true,
-                message: res.data.errorMsg || res.data.result
+                message: res.data.errorMsg || res.data
             })
         }).catch(err=>{
             console.log(err);
