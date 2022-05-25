@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import IconButton from '@mui/material/IconButton';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
-import PaymentIcon from '@mui/icons-material/Payment';
 import axios from 'axios';
 import {loginUser} from "../utils/cookie"
 const URL = 'http://124.70.53.71:8080';
@@ -24,9 +23,10 @@ function getRowColor(remainingDays){
   return '#FFF'
 }
 function getRemainingDays(date){
-  const borrowDate = new Date(date);
+  const returnDate = new Date(date);
   const now = new Date();
-  return 10-Math.floor((now-borrowDate)/1000/60/60/24);
+  // return 10-Math.floor((now-borrowDate)/1000/60/60/24);
+  return Math.ceil((returnDate-now)/1000/60/60/24)
 }
 
 export default function BorrowedList(props){
@@ -39,8 +39,8 @@ export default function BorrowedList(props){
   }
 
   const borrowed = props.borrowed.sort((a, b)=>{
-    const da = new Date(a.borrowDate);
-    const db = new Date(b.borrowDate);
+    const da = new Date(a.returnDate);
+    const db = new Date(b.returnDate);
     return  da- db;
   });
 
@@ -82,13 +82,16 @@ export default function BorrowedList(props){
             borrowed.map((row) => (
             <TableRow
               key={row.bookID}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 },backgroundColor: getRowColor(getRemainingDays(row.borrowDate)) }}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 },backgroundColor: getRowColor(getRemainingDays(row.returnDate)) }}
             >
               <TableCell>{row.bookID.toString().padStart(8, '0')}</TableCell>
               <TableCell align="left">{row.bookName}</TableCell>
-              <TableCell align="left">{getRemainingDays(row.borrowDate)}</TableCell>
+              <TableCell align="left">{getRemainingDays(row.returnDate)}</TableCell>
               <TableCell align="center" >
-                <IconButton color="success" data-id={row.bookID} onClick={renew}>
+                <IconButton color="success" 
+                            data-id={row.bookID} 
+                            onClick={renew}
+                            disabled={getRemainingDays(row.returnDate)<0}>
                   <AutorenewIcon />
                 </IconButton>
               </TableCell>
