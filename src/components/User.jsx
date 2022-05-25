@@ -98,11 +98,33 @@ export default function User(props) {
     e.preventDefault();
     const email_reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
     const fd = new FormData(e.currentTarget)
-    const email = fd.get('email')
-    if(!email_reg.test(email)){
+    const data={
+      id:loginUser(),
+      email: fd.get('email')
+    }
+    if(!email_reg.test(data.email)){
       return setMsg({
         open: true,
         message: 'Incorrect Email Format!'
+      })
+    }
+    else{   //从cookie中得到id，再发送改email请求
+      axios.defaults.withCredentials=true;
+      axios.post(URL+'updateEmail', data)
+      .then((res)=>{
+        if(res.data === "success"){
+          setMsg({
+            open:true,
+            message:'success!'
+          })
+        } else {
+          setMsg({
+            open:true,
+            message:'failed!'
+          })
+        }
+      }).catch(err =>{
+        console.log(err);
       })
     }
   }

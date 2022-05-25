@@ -95,7 +95,7 @@ export default function DetailList(props){
             </ListItem>
           </List>
           <TableContainer component={Paper}>
-      <Table sx={{ minWidth: "500px", maxHeight: 600 }} >
+      <Table sx={{ minWidth: "500px", maxHeight: 600 }} size="small">
         <TableHead>
           <TableRow>
             <TableCell>BookID</TableCell>

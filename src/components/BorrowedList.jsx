@@ -58,10 +58,6 @@ export default function BorrowedList(props){
         })
     })
   }
-  const pay = (e)=>{
-    const bid = e.currentTarget.getAttribute("data-id").toString().padStart(8, '0');
-    window.location.href=URL+"/pay?bookId="+bid;
-  }
 
     return (
     <React.Fragment>

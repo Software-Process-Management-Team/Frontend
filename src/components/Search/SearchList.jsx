@@ -141,18 +141,23 @@ export default function SearchList(props) {
             maxWidth="md">
           <Box sx={{width:"100%"}}>
             <DialogTitle>Details</DialogTitle>
-            <DialogContent>
+            <DialogContent sx={{height: "400px"}}>
               <Consumer>
                 {context=>{
-                  context==='member'?
-              <DetailList book={detailBook} list={detailBookList} getReserveData={getReserveData}/>
-                  :<UpdateList book={detailBook} list={detailBookList}/>
+                  if(context==='member') return <DetailList book={detailBook} list={detailBookList} getReserveData={getReserveData}/>
+                  else return <UpdateList book={detailBook} list={detailBookList}/>
                 }}
               </Consumer>
             </DialogContent>
             <DialogActions>
+                <Consumer>
+                {context=>{
+                  if(context !== 'member') return <Button onClick={handleDetailClose}>Update Info</Button>
+                }}
+                </Consumer>
                 <Button 
                   onClick={handleDetailClose}
+                  variant="contained"
                 >BACK</Button>
             </DialogActions>
           </Box>

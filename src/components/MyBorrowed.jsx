@@ -10,7 +10,7 @@ export default function MyBorrowed(){
   const [borrowed, setBorrowed] = useState([])
   useEffect(()=>{
     const fetchData = async ()=>{
-      const res = await axios.get(URL+'/myborrow', {params:{user_id: loginUser()}});
+      const res = await axios.get(URL+'/mycurrentborrow', {params:{user_id: loginUser()}});
       setBorrowed(res.data.borrowList)
     }
     fetchData()

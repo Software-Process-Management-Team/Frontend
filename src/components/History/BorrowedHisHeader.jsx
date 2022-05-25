@@ -10,7 +10,8 @@ export default function BorrowedHisHeader(){
   const [borrowed, setBorrowed] = useState([])
   useEffect(()=>{
     const fetchData = async ()=>{
-      const res = await axios.get(URL+'/myborrow', {params:{user_id: loginUser()}});
+      const res = await axios.get(URL+'/myborrowhistory', {params:{user_id: loginUser()}});
+      console.log(res);
       setBorrowed(res.data.borrowList)
     }
     fetchData()
