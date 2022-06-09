@@ -17,6 +17,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import AttributionIcon from '@mui/icons-material/Attribution';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import CategoryIcon from '@mui/icons-material/Category';
 import {loginUser} from "../../utils/cookie"
 
 /*
@@ -25,6 +26,7 @@ props.book = {
     bookAuthor :
     isbnNumber :
     location:
+    category:
 }
 props.list = [
     {bookID:  , available:  }
@@ -32,7 +34,7 @@ props.list = [
 */
 
 export default function DetailList(props){
-    const {bookName, bookAuthor, isbnNumber, location} = props.book;
+    const {bookName, bookAuthor, isbnNumber, location, category} = props.book;
     let {list} = props;
     list.sort((a,b)=>{
       return b.available - a.available;
@@ -80,6 +82,17 @@ export default function DetailList(props){
                 />
                 <ListItemText
                     primary={bookAuthor}
+                />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <CategoryIcon />
+              </ListItemIcon>
+                <ListItemText
+                    primary="Category: "
+                />
+                <ListItemText
+                    primary={category}
                 />
             </ListItem>
             <ListItem>

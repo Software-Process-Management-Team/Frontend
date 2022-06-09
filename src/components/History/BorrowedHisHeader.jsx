@@ -11,37 +11,16 @@ export default function BorrowedHisHeader(){
   useEffect(()=>{
     const fetchData = async ()=>{
       const res = await axios.get(URL+'/myborrowhistory', {params:{user_id: loginUser()}});
-      console.log(res);
       setBorrowed(res.data.borrowList)
     }
     fetchData()
   }, [])
 
-  const tempList = [
-      {
-        bookID: "00000001",
-        bookName: "abc",
-        borrow_Date: new Date("5/10/2022"),
-        return_Date: new Date("5/18/2022")
-    },
-    {
-        bookID: "00000012",
-        bookName: "dfh",
-        borrow_Date: new Date("5/15/2022"),
-        return_Date: new Date("5/21/2022")
-    },
-    {
-        bookID: "00001012",
-        bookName: "vnt",
-        borrow_Date: new Date("5/15/2022"),
-        return_Date: new Date("5/17/2022")
-    }
-  ]
     return (
       <Box sx={{width:"100%"}}>
         <FuncHeader func="My Borrowed History" />
         {/* booklist */}
-        <BorrowedHisList borrowed={tempList}/>
+        <BorrowedHisList borrowed={borrowed}/>
       </Box>
     )
 }

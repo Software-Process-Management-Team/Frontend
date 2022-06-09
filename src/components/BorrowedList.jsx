@@ -44,10 +44,17 @@ export default function BorrowedList(props){
     return  da- db;
   });
 
+  let map = new Map();
+  for(let x of borrowed){
+    map.set(x.bookID.toString(), x.transactionID.toString())
+  }
+
   const renew = (e)=>{
     const bid = e.currentTarget.getAttribute("data-id").toString().padStart(8, '0');
+    const tid = e.currentTarget.getAttribute("data-id").toString();
     const data={
       book_id: bid,
+      transaction_id: map.get(tid),
       user_id: loginUser()
     }
     axios.post(URL+"/renew", data)

@@ -135,10 +135,10 @@ export default function AddBook() {
                 fullWidth 
                 size="small"
                 select
-          label="category"
-          // value={category}
-          // onChange={handleChange}
-        >
+                label="category"
+                // value={category}
+                // onChange={handleChange}
+                >
                 <MenuItem value=""><em>None</em></MenuItem>
                 <MenuItem value={"art"}>art</MenuItem>
                 <MenuItem value={"economy"}>economy</MenuItem>

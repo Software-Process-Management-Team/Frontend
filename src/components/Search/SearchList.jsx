@@ -19,6 +19,7 @@ import Snackbar from '@mui/material/Snackbar';
 import {Consumer} from "../../utils/pvContext"
 import DetailList from './DetailList';
 import UpdateList from './UpdateList';
+import Updateform from './Updateform';
 
 import axios from 'axios';
 
@@ -27,7 +28,8 @@ function dataFilter(booklist){
     isbnNumber: booklist[0].isbnNumber,
     bookName: booklist[0].bookName,
     bookAuthor: booklist[0].bookAuthor,
-    location: booklist[0].location
+    location: booklist[0].location,
+    category: booklist[0].category
   };
   let list = new Array();
   booklist.map((item)=>{
@@ -57,6 +59,22 @@ export default function SearchList(props) {
     open:false,
     message:''
   });
+  const [updateOpen, setUpdateOpen] = React.useState(false)
+  const toUpdate = ()=>{
+    setDetailOpen(false);
+    setUpdateOpen(true);
+  }
+
+  const getUpdateInfo = (cate, loca, isbn) =>{
+    axios.get(`${URL}/changeLocationAndCategory?isbnNum=${isbn}&location=${loca}&category=${cate}`)
+    .then(res=>{
+      setMsg({
+        open: true,
+        message: res.data.result
+      })
+    })
+    setUpdateOpen(false)
+  }
 
   const handleMsgClose = ()=>{
     setMsg({...msg, open:false})
@@ -74,6 +92,9 @@ export default function SearchList(props) {
   const handleDetailClose = () => {
     setDetailOpen(false);
   };
+  const handleUpdateClose = () =>{
+    setUpdateOpen(false)
+  }
 
   const getReserveData = (reserData)=>{
     const {user_id, book_id} = reserData;
@@ -152,7 +173,7 @@ export default function SearchList(props) {
             <DialogActions>
                 <Consumer>
                 {context=>{
-                  if(context !== 'member') return <Button onClick={handleDetailClose}>Update Info</Button>
+                  if(context !== 'member') return <Button onClick={toUpdate}>Update Info</Button>
                 }}
                 </Consumer>
                 <Button 
@@ -162,6 +183,7 @@ export default function SearchList(props) {
             </DialogActions>
           </Box>
         </Dialog>
+        <Updateform open={updateOpen} book={detailBook} getUpdateInfo={getUpdateInfo} handleUpdateClose={handleUpdateClose}/>
         <Snackbar
             anchorOrigin={{ vertical:'top', horizontal:'center' }}
             open={msg.open}

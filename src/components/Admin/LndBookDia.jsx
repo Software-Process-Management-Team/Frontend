@@ -13,21 +13,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 
-import axios from 'axios';
-const URL = 'http://124.70.53.71:8080/';
-
 export default function LndBookDia(props){
-    const {open, handleDiaClose, lnd} = props;
-    const [info, setInfo] = React.useState([]);
-    React.useEffect(()=>{
-      const requrl = URL+(lnd==='lost'?'losted':'damaged')
-        // const fetchData = async ()=>{
-        //     const res = await axios.get(requrl)
-        //     setInfo(res.data)
-        // }
-        // fetchData()
-    }, [])
-
+    const {open, handleDiaClose, lnd, bookInfo} = props;
     const handleClick = ()=>{
         handleDiaClose('lnd')
     }
@@ -37,7 +24,7 @@ export default function LndBookDia(props){
             fullWidth
             maxWidth="md">
           <Box sx={{width:"100%"}}>
-            <DialogTitle>{(lnd==='lost'?'Losted':'Damaged')+' Books'}</DialogTitle>
+            <DialogTitle>{(lnd==='lost'?'Lost':'Damaged')+' Books'}</DialogTitle>
             <DialogContent>
     <TableContainer component={Paper}>
       <Table size="small" sx={{ minWidth: 650, maxHeight: 600 }} >
@@ -50,13 +37,13 @@ export default function LndBookDia(props){
         </TableHead>
         <TableBody>
           {
-            info.map((row) => (
+            bookInfo.map((row) => (
             <TableRow
               key={row.bookID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell>{row.bookID.toString().padStart(8, '0')}</TableCell>
-              <TableCell align="left">{row.ISBN}</TableCell>
+              <TableCell align="left">{row.isbnnumber}</TableCell>
               <TableCell align="left">{row.bookName}</TableCell>
             </TableRow>
           ))}

@@ -51,7 +51,7 @@ export default function SearchUserDia(props){
                 message:'Incorrect member ID!'
             })
         }
-        axios.get(URL + '/myborrow', {params:{user_id: uid}}).then(res=>{
+        axios.get(`${URL}/mycurrentborrow?user_id=${uid}`).then(res=>{
             setInfo(res.data.borrowList)
         })
     }

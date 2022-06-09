@@ -15,14 +15,15 @@ export default function BorrowedHisList(props){
     const db = new Date(b.borrow_Date);
     return  da- db;
   });
+  console.log(borrowed);
 
     return (
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650, maxHeight: 600 }} size="small">
         <TableHead>
           <TableRow>
-            <TableCell>BookID</TableCell>
-            <TableCell align="left">BookName</TableCell>
+            <TableCell align="center">BookID</TableCell>
+            <TableCell align="center">BookName</TableCell>
             <TableCell align="center">Borrowed Date</TableCell>
             <TableCell align="center">Returned Date</TableCell>
           </TableRow>
@@ -34,13 +35,13 @@ export default function BorrowedHisList(props){
               key={row.bookID}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }}}
             >
-              <TableCell>{row.bookID}</TableCell>
-              <TableCell align="left">{row.bookName}</TableCell>
+              <TableCell align="center">{row.bookID.toString().padStart(8, '0')}</TableCell>
+              <TableCell align="center">{row.bookName}</TableCell>
               <TableCell align="center">
-                  {row.borrow_Date.toDateString()}
+                  {row.borrowDate}
                   </TableCell>
               <TableCell align="center">
-                  {row.return_Date.toDateString()}
+                  {row.returnDate}
                   </TableCell>
             </TableRow>
           ))}

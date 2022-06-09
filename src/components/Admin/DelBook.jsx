@@ -28,8 +28,8 @@ export default function DelBook() {
 
   //得到子组件传来的需要删除的bookid，得到之后发送/deletebook请求
   const getBookid = (id) => {
-
     axios.defaults.withCredentials = true
+    console.log(reason);
     axios.get(URL+"/deletebook", {
       params: {
         book_id: id,

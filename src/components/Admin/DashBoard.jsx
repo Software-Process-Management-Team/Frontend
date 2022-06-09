@@ -10,6 +10,7 @@ import SearchUserDia from './SearchUserDia';
 import LndBookDia from './LndBookDia';
 import "../style.css"
 import axios from 'axios';
+
 const URL = 'http://124.70.53.71:8080';
 
 const theme = createTheme({
@@ -23,22 +24,33 @@ export default function DashBoard() {
     const [userDiaopen, setUserDiaopen] = React.useState(false)
     const [lndDiaopen, setLndDiaopen] = React.useState(false)
     const [lnd, setLnd] = React.useState('')
+    const [bookInfo, setBookInfo] = React.useState([])
     const openLost=()=>{
+      axios.get(URL+'/lostbooks')
+      .then(res=>{
+        setBookInfo(res.data)
         setLnd('lost')
         setLndDiaopen(true)
+      })
     }
     const openDamage = ()=>{
+      axios.get(URL+'/damagedbooks')
+      .then(res=>{
+        setBookInfo(res.data)
         setLnd('damage')
         setLndDiaopen(true)
+      })
     }
     const handleDiaClose = () =>{
         setUserDiaopen(false)
         setLndDiaopen(false);
     }
 
+    const [totalUser, setTotalUser] = React.useState(0)
     const [unpaid, setUnpaid] = React.useState(0);
     const [paid, setPaid] = React.useState(0);
     const [bookState, setBookState] = React.useState({
+      book: 0,
       collecion: 0,
       lentout: 0,
       damaged: 0,
@@ -46,12 +58,20 @@ export default function DashBoard() {
     })
     React.useEffect(()=>{
       const fetchData = async ()=>{
-        let res = await axios.get(URL+'/getTotalFines')
+        let res = await axios.get(URL+'/getTotalRegistered')
+        setTotalUser(res.data)
+        res = await axios.get(URL+'/bookstates')
+        setBookState({
+          book: res.data.bookMetaNumber,
+          collecion: res.data.collectionNumber,
+          lentout: res.data.lentoutNumber,
+          damaged: res.data.damagedNumber,
+          lost: res.data.lostNumber
+        })
+        res = await axios.get(URL+'/getTotalFines')
         setPaid(res.data)
         res = await axios.get(URL+'/getTotalUnpaidFines')
         setUnpaid(res.data)
-        res = await axios.get(URL+'/bookstates')
-        console.log(res);
       }
       fetchData()
     }, [])
@@ -63,7 +83,7 @@ export default function DashBoard() {
           Total Registered Readers
         </Typography>
         <Typography variant="h3" component="div" align='left' >
-          10
+          {totalUser}
         </Typography>
       </CardContent>
       <CardActions>
@@ -76,7 +96,7 @@ export default function DashBoard() {
           Total Books
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {bookState.book}
         </Typography>
       </CardContent>
       <CardActions>
@@ -89,7 +109,7 @@ export default function DashBoard() {
           Total Book Copies
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {bookState.collecion}
         </Typography>
       </CardContent>
       <CardActions>
@@ -102,7 +122,7 @@ export default function DashBoard() {
           Total Borrows
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {bookState.lentout}
         </Typography>
       </CardContent>
       <CardActions>
@@ -115,7 +135,7 @@ export default function DashBoard() {
           Total Lost Books
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {bookState.lost}
         </Typography>
       </CardContent>
       <CardActions>
@@ -128,7 +148,7 @@ export default function DashBoard() {
           Total Damaged Books
         </Typography>
         <Typography variant="h3" component="div">
-          15
+          {bookState.damaged}
         </Typography>
       </CardContent>
       <CardActions>
@@ -162,7 +182,7 @@ export default function DashBoard() {
       </CardActions>
     </Card>
     <SearchUserDia open={userDiaopen} handleDiaClose={handleDiaClose}/>
-    <LndBookDia open={lndDiaopen} handleDiaClose={handleDiaClose} lnd={lnd}/>
+    <LndBookDia open={lndDiaopen} handleDiaClose={handleDiaClose} lnd={lnd} bookInfo={bookInfo}/>
     </ThemeProvider>
 
   );
